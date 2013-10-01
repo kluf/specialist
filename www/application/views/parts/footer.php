@@ -1,0 +1,1 @@
+<div id="footer"><h5>KafCalc.if.ua - All rights reserved. Since 2013 - <?=date('Y');?>. Сторінку згенеровано за: <?php $this->benchmark->mark('end'); echo $this->benchmark->elapsed_time('start','end')." ceкунди";?></h5><b class="left_corner"></b><b class="right_corner"></b></div>
