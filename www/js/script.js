@@ -1,7 +1,6 @@
 $(document).ready(function() {
     $("#tabs").tabs();
     function myScrolling(){
-        console.log("test");
         var top = $("html").scrollTop();
         if(top >= 300){
             $("body").append("<div id='my_scroll'>Scroll me</div>");
@@ -16,7 +15,9 @@ $(document).ready(function() {
             });
         }
     };
+    
     $("window").bind('scroll',myScrolling());
+    
     function addKonsultField(){
         if($("#ispyt:checked")){
             $("label[for='konsult'],#konsult").show();
@@ -24,7 +25,7 @@ $(document).ready(function() {
             $("label[for='konsult'],#konsult").hide();
         }
     }
-    //$("#ispyt").bind('change',addKonsultField());
+    
     $("label[for='konsult'],#konsult").hide();
     $("input[name='zalik']").change(function(){
         if($(this).val() === 'ispyt'){
@@ -35,20 +36,14 @@ $(document).ready(function() {
         }
     });
     function addChartArea(quantity){
+        var i = 0;
         $("#mainPage_slider").append('<ul class="bxslider"></ul>');
-//        $("ul.bxslider").after('<div><input type="text" class="dateAdd required_my" name="begSem" value="2009-09-01" id="begSem"><input type="text" class="dateAdd required_my" name="endSem" value="2010-05-25" id="endSem"><button type="submit" class="btn" id="updateGpaphs"><i class="icon-refresh"></i>Оновити графіки</button></div>');
-        for(var i=0;i<quantity;i++){
+        for (i; i<quantity; i++) {
             $("ul.bxslider").append('<li class="bx-clone" style="float: left; list-style: none outside none; position: relative; width: 550px;"><span id="chart'+i+'" class="example-chart" style="height:300px;width:500px;display:block;"></span></li>');
             $("ul.bxslider").append('<li class="bx-clone" style="float: left; list-style: none outside none; position: relative; width: 550px;"><span id="pie'+i+'" class="example-chart" style="height:300px;width:500px;display:block;"></span></li>');
         }
     }
-//    function addPieArea(quantity){
-//        for(var i=0;i<quantity;i++){
-//            $("ul.bxslider").append('<li class="bx-clone" style="float: left; list-style: none outside none; position: relative; width: 550px;"><span id="pie'+i+'" class="example-chart" style="height:300px;width:500px;display:block;"></span></li>');
-//        }
-//    }
-    addChartArea(5);
-//    addPieArea(5);
+
     //begin chart
     function addChart(startSemestr,finishSemestr) {
         $.ajax({
@@ -61,7 +56,6 @@ $(document).ready(function() {
             },
             success: function(data){
                 quantity = data['0'].length;
-//                addChartArea(quantity);
                 for(var i=0;i<quantity;i++){
                     subQuantity = data['0'][i].length;
                     var line1 = [];
@@ -70,30 +64,16 @@ $(document).ready(function() {
                     }
                     idForChart = '#chart'+i;    
                     $(idForChart).jqplot([line1], {
-                                title: 'Навантаження по кафедрі (лінійний)',
-                                seriesDefaults: {
-                                    renderer: $.jqplot.BarRenderer
-                                },
-                                axes: {
-                                    xaxis: {
-                                        renderer: $.jqplot.CategoryAxisRenderer
-                                    }
-                                }
-                            });
-//                     idForChart = '#pie'+i;    
-//                    $(idForChart).jqplot([line1], {
-//                    title: 'Навантаження по кафедрі (тортик)',
-//                    seriesDefaults: {
-//                        // Make this a pie chart.
-//                        renderer: $.jqplot.PieRenderer,
-//                        rendererOptions: {
-//                            // Put data labels on the pie slices.
-//                            // By default, labels show the percentage of the slice.
-//                            showDataLabels: true
-//                        }
-//                    },
-//                    legend: {show: true, location: 'e'}
-//                });
+                    title: 'Навантаження по кафедрі (лінійний)',
+                    seriesDefaults: {
+                        renderer: $.jqplot.BarRenderer
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer
+                        }
+                    }
+                });
                 }
             }
         });
@@ -148,7 +128,6 @@ $(document).ready(function() {
             }
         });
     });
-    
    
     $("select[name='kafedra']").bind('change',function(){
         var kid = $("select[name='kafedra'] option:selected").val();
@@ -166,10 +145,8 @@ $(document).ready(function() {
                 for(var i=0; i<data['teacher'].length;i++){
                     $("<option value='"+data['teacher'][i]['id']+"'>"+data['teacher'][i]['surname']+" "+(data['teacher'][i]['name']).substring(0,1)+". "+(data['teacher'][i]['patronimic']).substring(0,1)+"."+"</option>").appendTo("select[name='teacher']");
                 }
-                console.log(data['teacher'][0]['id']);
             }
         });
-        console.log(kid);
         return false;
     });
     
@@ -198,42 +175,21 @@ $(document).ready(function() {
 
     
     $("#updateGpaphs").on('click',function(event){
-        var startSemestr =  $("#begSem").val();
-        var finishSemestr = $("#endSem").val(); 
-            if(!startSemestr || !finishSemestr){
-                alert("You must enter start and end of semestr to reload charts !");
-                event.preventDefault();
-            }else{
-                $("#mainPage_slider div:last").remove();
-                  addChartArea(5);
-//                addPieArea(5);
-                addChart(startSemestr,finishSemestr);
-                addPie(startSemestr,finishSemestr);
-                $('.bxslider').unbind('bxSlider').bxSlider({
-                    auto: true
-                    });                            
-            }
+        var startSemestr =  $("#begSem").val() || "2009-09-01";
+        var finishSemestr = $("#endSem").val() || "2010-05-25"; 
+        $(".bx-wrapper").remove();
+        addChartArea(5);
+        addChart(startSemestr,finishSemestr);
+        addPie(startSemestr,finishSemestr);
+        $('.bxslider').unbind('bxSlider').bxSlider({
+            auto: true
+        });          
     });
     
+    $("#updateGpaphs").click();
     
     setLogoBySeason();
-    addChart();
-    addPie();
-    $('.bxslider').bxSlider({
-                    auto: true
-                });
-
-    //slider
     
-    /*$(DyplomObj.addTip());
-    $(DyplomObj.formReg).bind('submit', DyplomObj.chekRegister());
-    $(DyplomObj.formLog).bind('submit', DyplomObj.checkLogin());
-    $(DyplomObj.emailField).bind({focus: DyplomObj.fieldFocus(DyplomObj.emailField, DyplomObj.emailTip)},
-    {blur: DyplomObj.fieldBlur(DyplomObj.emailField)});
-    $(DyplomObj.passField).bind({focus: DyplomObj.fieldFocus(DyplomObj.passField, DyplomObj.passTip)},
-    {blur: DyplomObj.fieldBlur(DyplomObj.passField)});
-    $(DyplomObj.pass2Field).bind({focus: DyplomObj.fieldFocus(DyplomObj.pass2Field, DyplomObj.pass2Tip)},
-    {blur: DyplomObj.fieldBlur(DyplomObj.pass2Field)});*/
     function setLogoBySeason() {
         var myDate = new Date();
         var myMonth = myDate.getMonth();

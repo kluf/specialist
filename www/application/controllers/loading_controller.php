@@ -2,8 +2,8 @@
 
 class Loading_controller extends CI_Controller {
     function getDataForCharts(){
-        $begSem = $this->security->xss_clean($this->input->post('begSem'));
-        $endSem = $this->security->xss_clean($this->input->post('endSem'));
+        $begSem = $this->security->xss_clean($this->input->get('begSem'));
+        $endSem = $this->security->xss_clean($this->input->get('endSem'));
         if(!$begSem OR !$endSem){
              $begSem = '2009-09-01';
              $endSem = '2010-05-25';
