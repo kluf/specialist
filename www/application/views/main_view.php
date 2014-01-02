@@ -4,6 +4,8 @@
         <title><?=$title?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="/css/mystyle.css" rel="stylesheet" media="screen">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script src="/js/bootstrap.min.js"></script>
@@ -19,12 +21,10 @@
         <script src="/js/script.js"></script>
     </head>
     <body>
-        
         <div id="containerMy">
             <!-- шапка сайту -->
         <?php $this->load->view('/parts/header');?>
         <?php $this->load->view('/parts/content');?>
-
         </div>
         <?php $this->load->view('/parts/footer');?>
     </body>

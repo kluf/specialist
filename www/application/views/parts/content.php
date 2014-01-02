@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <!--Sidebar content-->
-        <div class="span2">
+        <div class="span3">
             <div class="left_menu_img"><p class="menu_site">Навігація</p></div>
             <ul id="accordion" class="menu nav nav-pills nav-stacked">
                 <li><a href="<?=base_url().'faculty_controller/';?>">Факультети</a></li>
@@ -41,8 +41,17 @@
         </div>
 
  <!--Body content-->
-        <div class="span10">
-            <?php $this->load->view($view, $content = 0); ?>
+        <div class="span9">
+            <div class="row-fluid">
+                <?php $this->load->view($view, $content = 0); ?>
+            </div>
+            <div class="row-fluid">
+                <?php 
+                if (isset($pages)) {
+                    echo $pages;
+                }
+                ?>
+            </div>
         </div>
     </div>
 </div>

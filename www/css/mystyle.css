@@ -63,9 +63,6 @@ form.add_smth input,form.add_smth select{
 form.add_smth input[type='checkbox']{
     margin: -45px 10px 5px 280px;
 }
-.thumbnail.wide img{
-    float: right;
-}
 .forDelUpd{
     margin-top: 10px;
 }
@@ -104,9 +101,7 @@ label.getInfoByChange{
     height: 150px;
     padding:5px 0 5px 15px;
 }
-.thumbnail.wide{
-    width:95%;
-}
+
 #header div h1{
     font-family: CopseRegular;
     font-size:56px;
@@ -217,29 +212,21 @@ ul > li.for_dropdown{
 }
 /*bootstrap changing*/
 
-.row-fluid .span2{
-    width:200px;
+.row-fluid .span3{
     color:#369;
     border: 1px solid #90989A;
     border-radius: 5px;
     background:#fff;
 }
-.row-fluid .span10{
+.row-fluid .span9{
     padding:10px;
-    width:744px;
     border: 1px solid #90989A;
     border-radius: 5px;
     background:#fff;
 }
 .container-fluid{
    padding:10px;
-   margin-bottom: 50px;
-}
-.thumbnail{
-    width:205px;
-    float:left;
-    margin:10px 0 0 15px;
-    position: relative;
+   margin-bottom: 60px;
 }
 /*for changeing jquery widjet */
 
