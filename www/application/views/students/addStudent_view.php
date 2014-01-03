@@ -1,11 +1,11 @@
 <?php
 $this->load->helper('form');
-$formAttrs = array('class' => 'add_smth',
+$formAttrs = array('class' => 'form-horizontal thumbnail',
                     'enctype' => 'multipart/form-data'
 );
 $inputSurname = array('name' => 'surname',
                      'id' => 'surname',
-    'class' => 'required_my'
+    'class' => 'required_my surname'
 );
 $inputName = array('name' => 'name',
                     'id' => 'name',
@@ -36,21 +36,44 @@ $inputFile = array('name' => 'userfile',
 );
 $inputSubmit = array('name' => 'addUser',
                     'type' => 'submit',
-                    'class' => 'btn btn-success',
+                    'class' => 'btn btn-success span12',
                     'value' => 'Додати студента'
 );
-echo form_open(base_url().'student_controller/addStudent', $formAttrs);
-echo form_label('Виберіть групу студентів: ', 'group');echo form_dropdown('group', $content['grp']);
-echo form_label('Прізвище: ', 'surname');echo form_input($inputSurname);
-echo form_label('Ім\'я: ', 'name'); echo form_input($inputName);
-echo form_label('По-батькові: ', 'patronimic');echo form_input($inputPatronimic);
-echo form_label('№ залікової: ', 'zalikova1');echo form_input($inputZalikova1);
-echo form_label('№ телефону: ', 'phone1'); echo form_input($inputPhone1);
-echo form_label('Паспорт: ', 'passport'); echo form_input($inputPassport);
-echo form_label('Прізвище: ', 'surname2');echo form_input($inputSurname2);
-echo form_label('№ залікової 2: ', 'zalikova2');echo form_input($inputZalikova2);
-echo form_label('Завантажте фото: ', 'userfile');echo form_upload($inputFile);
-echo form_submit($inputSubmit);
+$labelAttr = array('class' => 'control-label');
+
+echo form_open(base_url().'student_controller/addStudent', $formAttrs).'<fieldset><legend>Додати студента</legend>';
+echo '<div class="control-group">'.
+    form_label('Виберіть групу студентів: ', 'group', $labelAttr).
+        '<div class="controls">'.form_dropdown('group', $content['grp']).'</div></div>';
+echo '<div class="control-group">'.
+    form_label('Прізвище: ', 'surname', $labelAttr).
+        '<div class="controls">'.form_input($inputSurname).'</div></div>';
+echo '<div class="control-group">'.
+    form_label('Ім\'я: ', 'name', $labelAttr).
+        '<div class="controls">'.form_input($inputName).'</div></div>';
+echo '<div class="control-group">'.
+    form_label('По-батькові: ', 'patronimic', $labelAttr).
+        '<div class="controls">'.form_input($inputPatronimic).'</div></div>';
+echo '<div class="control-group">'.
+    form_label('№ залікової: ', 'zalikova1', $labelAttr).
+        '<div class="controls">'.form_input($inputZalikova1).'</div></div>';
+echo '<div class="control-group">'.
+    form_label('№ телефону: ', 'phone1', $labelAttr).
+        '<div class="controls">'.form_input($inputPhone1).'</div></div>';
+echo '<div class="control-group">'.
+    form_label('Паспорт: ', 'passport', $labelAttr).
+        '<div class="controls">'.form_input($inputPassport).'</div></div>';
+echo '<div class="control-group">'.
+    form_label('Прізвище: ', 'surname2', $labelAttr).
+        '<div class="controls">'.form_input($inputSurname2).'</div></div>';
+echo '<div class="control-group">'.
+    form_label('№ залікової 2: ', 'zalikova2', $labelAttr).
+        '<div class="controls">'.form_input($inputZalikova2).'</div></div>';
+echo '<div class="control-group">'.
+    form_label('Завантажте фото: ', 'userfile', $labelAttr).
+        '<div class="controls">'.form_upload($inputFile).'</div></div>';
+echo '<div class="control-group">'.
+    form_submit($inputSubmit).'</div></fieldset>';
 form_close();
 
 

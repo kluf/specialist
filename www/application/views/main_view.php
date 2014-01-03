@@ -3,9 +3,10 @@
     <head>
         <title><?=$title?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="/css/mystyle.css" rel="stylesheet" media="screen">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="/css/mystyle.css" rel="stylesheet" media="screen">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script src="/js/bootstrap.min.js"></script>

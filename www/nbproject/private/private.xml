@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/home1/www/application/views/faculty/update_faculty_view.php</file>
+            <file>file:/C:/xampp/htdocs/home1/www/application/views/students/addStudent_view.php</file>
+            <file>file:/C:/xampp/htdocs/home1/www/css/mystyle.css</file>
             <file>file:/C:/xampp/htdocs/home1/www/application/views/teachers/teacher_view.php</file>
+            <file>file:/C:/xampp/htdocs/home1/www/application/views/main_view.php</file>
         </group>
     </open-files>
 </project-private>

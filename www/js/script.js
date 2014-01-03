@@ -55,7 +55,7 @@ $(document).ready(function() {
                 endSem : finishSemestr
             },
             success: function(data){
-                quantity = data['0'].length;
+                var quantity = data['0'].length;
                 for(var i=0;i<quantity;i++){
                     subQuantity = data['0'][i].length;
                     var line1 = [];
@@ -117,12 +117,17 @@ $(document).ready(function() {
     
     //adding borders to required fields and tips
     $("form").bind('submit',function(event){
+        var validator = {
+            name : /^[a-zA-Z]{3,20}$/,
+            surname : /^[a-zA-Z]{3,20}$/
+        },
+        err = 0;
     $("span[class='alert']").remove();
         $("form input.required_my").each(function(){
             if(! $(this).val()){
-                var position = $(this).offset();
-                var top = Math.round(position.top)+35;
-                var left = Math.round(position.left)+120;
+                var position = $(this).offset(),
+                top = Math.round(position.top)+35,
+                left = Math.round(position.left)+120;
                 $(this).after('<span class="alert" style="position:absolute;width:150px;top:'+top+'px;left:'+left+'px"><img src="/img/tips_corner.png" style="position:relative;top:-22px;left:20px;">Поле обов\'язкове</span>');
                 event.preventDefault();
             }
@@ -191,9 +196,9 @@ $(document).ready(function() {
     setLogoBySeason();
     
     function setLogoBySeason() {
-        var myDate = new Date();
-        var myMonth = myDate.getMonth();
-        var myDay = myDate.getDate();
+        var myDate = new Date(),
+        myMonth = myDate.getMonth(),
+        myDay = myDate.getDate();
         if (myMonth === 1 || myMonth === 11 || myMonth === 0)
             $("#header img").attr("src", "/img/winther_1.png");
         else if (myMonth === 2 || myMonth === 3 || myMonth === 4) {

@@ -43,7 +43,9 @@
  <!--Body content-->
         <div class="span9">
             <div class="row-fluid">
-                <?php $this->load->view($view, $content = 0); ?>
+                <ul class="thumbnails">
+                    <?php $this->load->view($view, $content = 0); ?>
+                </ul>
             </div>
             <div class="row-fluid">
                 <?php 

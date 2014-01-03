@@ -47,10 +47,6 @@ form.add_smth label{
     color: #fff;
     font-weight: bold;
 }
-fieldset{
-    border:1px dotted #63A0B2;
-    border-radius: 5px;
-}
 fieldset legend{
     text-align: center;
     font:24px calibri,verdana,sans-serif;
@@ -238,5 +234,6 @@ ul > li.for_dropdown{
     font-family: calibri,verdana,sans-serif;
     font-size: 1em;
 }
+
 
 
