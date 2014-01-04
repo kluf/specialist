@@ -1,5 +1,7 @@
 <?php  
     $this->load->helper('form');
+    $formAttrs = array('class' => 'form-horizontal thumbnail'
+    );
     $inputDateStart = array(
         'name' => 'startSem',
         'id' => 'dateStart',
@@ -10,19 +12,29 @@
         'id' => 'dateFinal',
         'class' => 'dateAdd required_my'
     );
-    $attr = array(
-        'class' => "getInfoByChange"
-    );
-    echo form_label('Виберіть кафедру: ', 'kafedra',$attr);echo form_dropdown('kafedra', $kafedra);
-    echo form_open(base_url().'main_load/getFullTeacherLoading/');
-    echo form_dropdown('teacher',$teacher);
-    echo form_input($inputDateStart);
-    echo form_input($inputDateFinal);
+    $selAttr1 = 'class="span8"';
+    $labelAttr1 = array('class' => 'control-label span4');
+    $selAttr = 'class="span8"';
+    $labelAttr = array('class' => 'control-label');
+    echo '<div class="control-group thumbnail getInfoByChange">'.
+    form_label('Виберіть кафедру: ', 'kafedra', $labelAttr1)
+        .'<div class="controls">'.form_dropdown('kafedra', $kafedra,'kafedra',$selAttr1).'</div></div>';
+    echo form_open(base_url().'main_load/getFullTeacherLoading/', $formAttrs).'<fieldset><legend>Навантаження викладача</legend>';    
+    echo '<div class="control-group">'.
+    form_label('Виберіть викладача: ', 'teacher', $labelAttr)
+        .'<div class="controls">'.form_dropdown('teacher',$teacher, 'teacher', $selAttr).'</div></div>';
+    echo '<div class="control-group">'.
+    form_label('Виберіть дату початок семестру: ', 'dateStart', $labelAttr)
+        .'<div class="controls">'.form_input($inputDateStart).'</div></div>';
+    echo '<div class="control-group">'.
+    form_label('Виберіть дату кінця семестру: ', 'dateFinal', $labelAttr)
+        .'<div class="controls">'.form_input($inputDateFinal).'</div></div>';
+    
     echo form_submit(array('name' => 'getTeacherData',
                     'type' => 'submit',
-                    'class' => 'btn btn-success',
+                    'class' => 'btn btn-success span12',
                     'value' => 'Отримати навантаження на викладача'
-    ));
+    )).'</div></fieldset>';
     echo form_close();
         
     if(isset($mainLoad)){

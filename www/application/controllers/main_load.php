@@ -377,7 +377,7 @@ class Main_load extends CI_Controller {
                     $this->main_load_model->updateMainTeacherLoad($data);
                 }
         }
-        public function addPersLoad(){
+        public function addPersLoad() {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
@@ -413,7 +413,7 @@ class Main_load extends CI_Controller {
                     $this->main_load_model->addPersTeacherLoad($data);
                 }
         }
-        public function updatePersLoad(){
+        public function updatePersLoad() {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
@@ -451,7 +451,7 @@ class Main_load extends CI_Controller {
                     $this->main_load_model->updatePersTeacherLoad($data);
                 }
         }  
-         public function addPraktLoad(){
+         public function addPraktLoad() {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
@@ -479,7 +479,7 @@ class Main_load extends CI_Controller {
                     $this->main_load_model->addPraktTeacherLoad($data);
                 }
         }
-        public function updatePraktLoad(){
+        public function updatePraktLoad() {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
@@ -509,7 +509,7 @@ class Main_load extends CI_Controller {
                     $this->main_load_model->updatePraktTeacherLoad($data);
                 }
         }
-        function removeMainLoad(){
+        function removeMainLoad() {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
@@ -527,7 +527,7 @@ class Main_load extends CI_Controller {
                     $this->main_load_model->removeMainTeacherLoad($id);
                 }
         }
-        function removePersLoad(){
+        function removePersLoad() {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
@@ -545,7 +545,7 @@ class Main_load extends CI_Controller {
                     $this->main_load_model->removePersonalTeacherLoad($id);
                 }
         }
-        function removePractLoad(){
+        function removePractLoad() {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
@@ -563,7 +563,7 @@ class Main_load extends CI_Controller {
                     $this->main_load_model->removePersonalTeacherLoad($id);
                 }
         }
-        function getTimesheet(){
+        function getTimesheet() {
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $attrs['kafedra'] = $this->security->xss_clean($this->input->post('kafedra'));
                 $attrs['formaNavch'] = $this->security->xss_clean($this->input->post('formaNavch'));
@@ -581,7 +581,7 @@ class Main_load extends CI_Controller {
             $data['title'] = 'Розклад по викладачах';
             $this->load->view('main_view',$data);
         }
-        function getKafedraLoading(){
+        function getKafedraLoading() {
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $attrs['kafedra'] = $this->security->xss_clean($this->input->post('kafedra'));
                 $attrs['startSem'] = $this->security->xss_clean($this->input->post('startSem'));
@@ -596,7 +596,7 @@ class Main_load extends CI_Controller {
             $data['title'] = 'Навантаження по кафедрі';
             $this->load->view('main_view',$data);
         }
-        function getFullTeacherLoading(){
+        function getFullTeacherLoading() {
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $attrs['id'] = $this->security->xss_clean($this->input->post('teacher'));
                 $attrs['startSem'] = $this->security->xss_clean($this->input->post('startSem'));
@@ -613,7 +613,7 @@ class Main_load extends CI_Controller {
             $this->load->model('teacher_model');
             $data['teacher'] = $this->arrayForSelect($this->teacher_model->getAllTeachers(),'id','surname');
             $data['view'] = '/loading/fullTeacherLoading_view';
-            $data['title'] = 'Навантаження по кафедрі';
+            $data['title'] = 'Навантаження по викладачу';
             $this->load->view('main_view',$data);
         }
 }

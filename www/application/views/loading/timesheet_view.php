@@ -1,5 +1,6 @@
 <?php 
     $this->load->helper('form');
+    $formAttrs = array('class' => 'form-horizontal');
     $inputDateStart = array(
         'name' => 'startSem',
         'id' => 'dateStart',
@@ -10,16 +11,26 @@
         'id' => 'dateFinal',
         'class' => 'dateAdd required_my'
     );
-    echo form_open(base_url().'main_load/getTimesheet/');
-    echo form_dropdown('kafedra',$kafedra);
-    echo form_dropdown('formaNavch',$formaNavch);
-    echo form_input($inputDateStart);
-    echo form_input($inputDateFinal);
+    $selAttr = 'class="span8"';
+    $labelAttr = array('class' => 'control-label');
+    echo form_open(base_url().'main_load/getTimesheet/', $formAttrs).'<fieldset><legend>Розклад по викладачах</legend>';
+    echo '<div class="control-group">'.
+    form_label('Виберіть кафедру: ', 'kafedra', $labelAttr)
+        .'<div class="controls">'.form_dropdown('kafedra',$kafedra).'</div></div>';
+    echo '<div class="control-group">'.
+    form_label('Виберіть форму навчання: ', 'formaNavch', $labelAttr)
+        .'<div class="controls">'.form_dropdown('formaNavch',$formaNavch).'</div></div>';
+    echo '<div class="control-group">'.
+    form_label('Виберіть дату початок семестру: ', 'dateStart', $labelAttr)
+        .'<div class="controls">'.form_input($inputDateStart).'</div></div>';
+    echo '<div class="control-group">'.
+    form_label('Виберіть дату кінця семестру: ', 'dateFinal', $labelAttr)
+        .'<div class="controls">'.form_input($inputDateFinal).'</div></div>';
     echo form_submit(array('name' => 'getTeacherData',
                     'type' => 'submit',
-                    'class' => 'btn btn-success',
+                    'class' => 'btn btn-success span12',
                     'value' => 'Отримати навантаження на викладача'
-    ));
+    )).'</div></fieldset>';
     echo form_close();
         
     if(isset($timesheet)){

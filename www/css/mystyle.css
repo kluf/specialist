@@ -28,9 +28,6 @@ html,body{
 a:hover{
     text-decoration: none;
 }
-textarea{
-    width:530px;
-}
 p,li,a{
     font-family: calibri,verdana,sans-serif;
 }
@@ -71,10 +68,10 @@ form input[type='radio']{
 form input[type='submit']{
     margin: 5px auto;
 }
-label.getInfoByChange{
+.getInfoByChange{
     background: #f8b9b7;
-    line-height: 40px;
-    padding-left: 20px;
+    /*line-height: 40px;
+    padding-left: 20px*/;
     font-weight: bold;
 }
 #My_pages{

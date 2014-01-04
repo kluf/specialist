@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Teacher_controller extends CI_Controller {
+class Teacher_controller extends CI_controller {
     public function arrayForSelect($content,$option,$value){
         foreach ($content as $val): 
             $result[$val[$option]] = $val[$value];
@@ -8,7 +8,7 @@ class Teacher_controller extends CI_Controller {
     return $result;
     }
     
-    public function index(){
+    function index(){
         $this->load->model('teacher_model');
         $data['title'] = 'Викладачі';
         $data['view'] = '/teachers/teacher_view';
@@ -17,18 +17,19 @@ class Teacher_controller extends CI_Controller {
         $data['teacher'] = $this->teacher_model->getAllTeachers();
         $this->load->view('main_view',$data);
     }
+
     function getTeacherByKafedra(){
         $this->load->model('kafedra_model');
         $data['kafedra'] = $this->arrayForSelect($this->kafedra_model->getAllKafedra(), 'id', 'kname');
         $this->load->model('teacher_model');
         $data['title'] = 'Викладачі кафедри';
         $data['view'] = '/teachers/teacher_view';
-        //var_dump($this->input->post('kafedra'));exit;
         $kid = $this->security->xss_clean($this->input->post('kafedra'));
         $data['teacher'] = $this->teacher_model->getTeacherByKafedra($kid);
         $this->load->view('main_view',$data);
         
     }
+
     function getTeacherById($id){
         $this->load->model('teacher_model');
         $data['teacher'] = $this->teacher_model->getTeacherById($id);
@@ -43,13 +44,11 @@ class Teacher_controller extends CI_Controller {
         $data['view'] = '/teachers/addTeacher_view';
         $data['title'] = 'Додавання викладача';
         $this->load->view('main_view',$data);
-        
     }
     
     function addTeacher(){
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
-        //var_dump($_POST);exit;
         $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
         $this->form_validation->set_rules('kafedra', 'Назва кафедри','trim|required|xss_clean');
         $this->form_validation->set_rules('surname', 'Прізвище','trim|required|xss_clean');
@@ -60,7 +59,6 @@ class Teacher_controller extends CI_Controller {
         $this->form_validation->set_rules('passport', 'Паспорт','trim|xss_clean');
         $this->form_validation->set_rules('surname2', 'Прізвище 2','trim|xss_clean');
         $this->form_validation->set_rules('phone2', '№ телефону 2','trim|xss_clean');
-        //$this->form_validation->set_rules('userfile', 'Назва предмету','trim|required|xss_clean');
         if ($this->form_validation->run() == FALSE)
             {
                 $data['view'] = 'err';
@@ -116,7 +114,6 @@ class Teacher_controller extends CI_Controller {
         $data['view'] = '/teachers/editTeacher_view';
         $data['title'] = 'Редагування викладача';
         $this->load->view('main_view',$data);
-        
     }
     
     function updateTeacher(){
