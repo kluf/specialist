@@ -204,7 +204,10 @@ ul > li.for_dropdown{
     padding: 5px 10px;
 }
 /*bootstrap changing*/
-
+.control-group {
+    background-color: #63A0B2;
+    padding: 3px 0;
+}
 .row-fluid .span3{
     color:#369;
     border: 1px solid #90989A;

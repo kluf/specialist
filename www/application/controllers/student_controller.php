@@ -90,7 +90,7 @@ class Student_controller extends CI_Controller {
         $this->load->model('group_model');
         $data['content']['group'] = $this->arrayForSelect($this->group_model->getGroups(),'id','GOSname');
         $data['title'] = 'Редагування студента';
-        $data['view'] = '/students/editStudent_view';
+        $data['view'] = '/students/addStudent_view';
         $this->load->view('main_view', $data);
     }
 
