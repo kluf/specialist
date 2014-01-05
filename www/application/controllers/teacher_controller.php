@@ -32,7 +32,7 @@ class Teacher_controller extends CI_controller {
 
     function getTeacherById($id){
         $this->load->model('teacher_model');
-        $data['teacher'] = $this->teacher_model->getTeacherById($id);
+        $data['teacher'] = $this->teacher_model->getTeacherById($this->security->xss_clean($id));
         $data['title'] = 'Викладач';
         $data['view'] = '/teachers/one_teacher_view';
         $this->load->view('main_view',$data);
@@ -76,31 +76,8 @@ class Teacher_controller extends CI_controller {
                 $data['passport'] = $this->security->xss_clean($this->input->post('passport'));
                 $data['surname2'] = $this->security->xss_clean($this->input->post('surname2'));
                 $data['phone2'] = $this->security->xss_clean($this->input->post('phone2'));
-                //$data['name'] = $this->security->xss_clean($this->input->post('name'));
-                $config['upload_path'] = './img/teacher/';
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = '150';
-                $config['encrypt_name'] = TRUE;
-                $this->load->library('upload', $config);
-                $this->upload->do_upload();
-                $img = $this->upload->data();
-                if (!$img['file_name']) {
-                    $data['img'] = 'defaultFaculty.jpg';
-                } else {
-                    $this->load->library('image_lib');
-                    $config['image_library'] = 'gd2';
-                    $config['source_image'] = './img/faculty/'.$this->security->sanitize_filename($img['file_name']);
-                    $config['wm_overlay_path'] = './img/thumbnail.png';
-                    $config['wm_type'] = 'overlay';
-                    $config['wm_opacity'] = '0';
-                    $config['wm_vrt_alignment'] = 'bottom';
-                    $config['wm_hor_alignment'] = 'right';
-                    $this->image_lib->initialize($config);
-                    $this->image_lib->watermark();
-                    $data['img'] = $this->security->sanitize_filename($img['file_name']);
-                }
-                
-                
+                $this->load->model('imageManipulator');
+                $data['img'] = $this->imageManipulator->uploadImage('./img/teacher');
                 $this->load->model('teacher_model');
                 $this->teacher_model->addTeacher($data);
             }
@@ -119,7 +96,6 @@ class Teacher_controller extends CI_controller {
     function updateTeacher(){
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
-        //var_dump($_POST);exit;
         $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
         $this->form_validation->set_rules('id', 'Назва кафедри','trim|required|xss_clean');
         $this->form_validation->set_rules('kafedra', 'Назва кафедри','trim|required|xss_clean');
@@ -131,7 +107,6 @@ class Teacher_controller extends CI_controller {
         $this->form_validation->set_rules('passport', 'Паспорт','trim|xss_clean');
         $this->form_validation->set_rules('surname2', 'Прізвище 2','trim|xss_clean');
         $this->form_validation->set_rules('phone2', '№ телефону 2','trim|xss_clean');
-        //$this->form_validation->set_rules('userfile', 'Назва предмету','trim|required|xss_clean');
         if ($this->form_validation->run() == FALSE)
             {
                 $data['view'] = 'err';
@@ -150,30 +125,8 @@ class Teacher_controller extends CI_controller {
                 $data['passport'] = $this->security->xss_clean($this->input->post('passport'));
                 $data['surname2'] = $this->security->xss_clean($this->input->post('surname2'));
                 $data['phone2'] = $this->security->xss_clean($this->input->post('phone2'));
-                //$data['name'] = $this->security->xss_clean($this->input->post('name'));
-                $config['upload_path'] = './img/teacher/';
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = '150';
-                $config['encrypt_name'] = TRUE;
-                $this->load->library('upload', $config);
-                $this->upload->do_upload();
-                $img = $this->upload->data();
-                if (!$img['file_name']) {
-                    $data['img'] =  $this->input->post('img');
-                } else {
-                    $this->load->library('image_lib');
-                    $config['image_library'] = 'gd2';
-                    $config['source_image'] = './img/faculty/'.$this->security->sanitize_filename($img['file_name']);
-                    $config['wm_overlay_path'] = './img/thumbnail.png';
-                    $config['wm_type'] = 'overlay';
-                    $config['wm_opacity'] = '0';
-                    $config['wm_vrt_alignment'] = 'bottom';
-                    $config['wm_hor_alignment'] = 'right';
-                    $this->image_lib->initialize($config);
-                    $this->image_lib->watermark();
-                    
-                    $data['img'] = $this->security->sanitize_filename($img['file_name']);
-                }
+                $this->load->model('imageManipulator');
+                $data['img'] = $this->imageManipulator->uploadImage('./img/teacher');
                 $this->load->model('teacher_model');
                 $this->teacher_model->updateTeacher($data);
             }

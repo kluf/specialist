@@ -61,6 +61,8 @@ class Ion_auth
 		$this->load->library('email');
 		$this->lang->load('ion_auth');
 		$this->load->helper('cookie');
+		$this->load->helper('language');
+		$this->load->helper('url');
 
 		// Load the session, CI2 as a library, CI3 uses it as a driver
 		if (substr(CI_VERSION, 0, 1) == '2')
@@ -140,7 +142,7 @@ class Ion_auth
 		if ( $this->ion_auth_model->forgotten_password($identity) )   //changed
 		{
 			// Get user information
-			$user = $this->where($this->config->item('identity', 'ion_auth'), $identity)->users()->row();  //changed to get_user_by_identity from email
+            $user = $this->where($this->config->item('identity', 'ion_auth'), $identity)->where('active', 1)->users()->row();  //changed to get_user_by_identity from email
 
 			if ($user)
 			{

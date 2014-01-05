@@ -310,37 +310,14 @@ ALTER TABLE `user_tokens`
 ADD CONSTRAINT `user_tokens_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 */
 
+
+/*===============================================*/
 /*Tables for authorization CI*/
-DROP TABLE IF EXISTS `groups`;
-
-#
-# Table structure for table 'groups'
-#
-
-CREATE TABLE `groups` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
-  `description` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Dumping data for table 'groups'
-#
-
-INSERT INTO `groups` (`id`, `name`, `description`) VALUES
-     (1,'admin','Administrator'),
-     (2,'members','General User');
 
 
 
-DROP TABLE IF EXISTS `users`;
 
-#
-# Table structure for table 'users'
-#
-
-CREATE TABLE `users` (
+CREATE TABLE users (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ip_address` varbinary(16) NOT NULL,
   `username` varchar(100) NOT NULL,
@@ -358,57 +335,68 @@ CREATE TABLE `users` (
   `last_name` varchar(50) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY(id),
+  CONSTRAINT users_check_id CHECK(id >= 0),
+  CONSTRAINT users_check_active CHECK(active >= 0)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-#
-# Dumping data for table 'users'
-#
-
-INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-     ('1',0x7f000001,'administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL,'1268889823','1268889823','1', 'Admin','istrator','ADMIN','0');
-
-
-DROP TABLE IF EXISTS `users_groups`;
-
-#
-# Table structure for table 'users_groups'
-#
-
-CREATE TABLE `users_groups` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
-  `group_id` mediumint(8) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_users_groups_users1_idx` (`user_id`),
-  KEY `fk_users_groups_groups1_idx` (`group_id`),
-  CONSTRAINT `uc_users_groups` UNIQUE (`user_id`, `group_id`),
-  CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-     (1,1,1),
-     (2,1,2);
+CREATE TABLE groups (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT groups_check_id CHECK(id >= 0)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `login_attempts`;
-
-#
-# Table structure for table 'login_attempts'
-#
-
-CREATE TABLE `login_attempts` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `ip_address` varbinary(16) NOT NULL,
-  `login` varchar(100) NOT NULL,
-  `time` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE users_groups (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`user_id` int(11) unsigned NOT NULL,
+	`group_id` mediumint(8) unsigned NOT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT uc_users_groups UNIQUE (user_id, group_id),
+  CONSTRAINT users_groups_check_id CHECK(id >= 0),
+  CONSTRAINT users_groups_check_group_id CHECK(group_id >= 0),
+  CONSTRAINT users_groups_check_user_id CHECK(user_id >= 0)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+#SET IDENTITY_INSERT groups ON;
+INSERT INTO groups (id, name, description) VALUES (1,'admin','Administrator');
+INSERT INTO groups (id, name, description) VALUES (2,'members','General User');
+#SET IDENTITY_INSERT groups OFF;
 
+#SET IDENTITY_INSERT users ON;
+INSERT INTO users (id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone) 
+	VALUES ('1',0x7f000001,'administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL, DATEDIFF('19700101', NOW()), DATEDIFF('19700101', NOW()),'1','Admin','istrator','ADMIN','0'); 
+
+#SET IDENTITY_INSERT users OFF;
+
+SET IDENTITY_INSERT users_groups ON;
+INSERT INTO users_groups (id, user_id, group_id) VALUES (1,1,1);
+INSERT INTO users_groups (id, user_id, group_id) VALUES (2,1,2);
+SET IDENTITY_INSERT users_groups OFF;
+
+CREATE TABLE login_attempts (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`ip_address` varbinary(16) NOT NULL,
+	`login` varchar(100) NOT NULL,
+	`time` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT login_attempts_check_id CHECK(id >= 0)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+
+
+
+
+/*end of tables for authorization*/
 
   
 /*Таблиці для аудиторій*/
