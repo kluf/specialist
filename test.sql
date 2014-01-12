@@ -369,7 +369,7 @@ INSERT INTO groups (id, name, description) VALUES (2,'members','General User');
 
 #SET IDENTITY_INSERT users ON;
 INSERT INTO users (id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone) 
-	VALUES ('1',0x7f000001,'administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL, DATEDIFF('19700101', NOW()), DATEDIFF('19700101', NOW()),'1','Admin','istrator','ADMIN','0'); 
+	VALUES ('1',0x7f000001,'administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL, DATEDIFF('19700101', TIME()), DATEDIFF('19700101', TIME()),'1','Admin','istrator','ADMIN','0'); 
 
 #SET IDENTITY_INSERT users OFF;
 
