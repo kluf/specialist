@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
     <head>
         <title><?=$title?></title>
@@ -18,14 +17,12 @@
         <script type="text/javascript" src="/js/jquery.bxslider.js"></script>
         <script type='text/javascript' src='/js/jquery.cookie.js'></script>
         <script type='text/javascript' src='/js/jquery.hoverIntent.minified.js'></script>
-        <script type='text/javascript' src='/js/jquery.dcjqaccordion.2.9.js'></script>
         <script src="/js/script.js"></script>
     </head>
     <body>
-        <div id="containerMy">
-            <!-- шапка сайту -->
-        <?php $this->load->view('/parts/header');?>
-        <?php $this->load->view('/parts/content');?>
+        <div id="containerMy" class="container-fluid">
+            <?php $this->load->view('/parts/header');?>
+            <?php $this->load->view('/parts/content');?>
         </div>
         <?php $this->load->view('/parts/footer');?>
     </body>

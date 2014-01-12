@@ -2,7 +2,6 @@
 @import url(jquery-ui.custom.css);
 @import url(jquery.jqplot.min.css);
 @import url(jquery.bxslider.css);
-@import url(reset.css);
 @font-face {
     font-family: 'CopseRegular';
     src: url('../fnt/copse-regular.eot');
@@ -88,12 +87,12 @@ form input[type='submit']{
     width: 550px;
 }
 .for_wide_table{
-    overflow-x: scroll;
+    overflow-x: auto;
 }
-#header{
+/*#header{
     height: 150px;
     padding:5px 0 5px 15px;
-}
+}*/
 
 #header div h1{
     font-family: CopseRegular;
@@ -111,19 +110,17 @@ form input[type='submit']{
 #logo{
     width: 160px;
     height: 149px;
-    float:left;
 }
 #logoTitle{
-    width:350px;
     height:120px;
     margin: 0 auto;
+    float: right;
 }
 #containerMy{
     min-height: 100%;
     width:990px;
     margin:0 auto 0px;
     background: url(../img/bg_transparent.png) repeat;
-    margin: 0 auto -60px;
 }
 .left_menu_img{
     width:200px;
@@ -138,7 +135,6 @@ p.menu_site{
     font-family: CopseRegular;
     font-size:20px;
     color:#BCF7FF;
-    
 }
 .rightFloat{
     float:right;
@@ -147,20 +143,20 @@ p.menu_site{
 #footer {
     background: none repeat 0 0 #90989A;
     height: 50px;
-    margin: 10px auto 0;
+    margin: 0 auto 0;
     width: 1020px;
     position: relative;
 }
 #footer h5{
-    line-height: 50px;
+    line-height: 30px;
     text-align: center;
     font-family: CopseRegular;
     font-size:16px;
     color:#BCF7FF;
 }
-.navbar{
+/*.navbar{
     margin:0;
-}
+}*/
 .left_corner{
     height:50px;
     width:30px;
@@ -194,10 +190,6 @@ table tr:nth-child(even){
 form{
     display: inline;
 }
-ul > li.for_dropdown{
-    background-color: #EEFFFF;
-    outline: 1px dashed #63A5B3;
-}
 .dcjq-parent-li ul li {
     background: none repeat scroll 0 0 #FFFFFF;
     color: #D0D0D0;
@@ -208,22 +200,23 @@ ul > li.for_dropdown{
     background-color: #63A0B2;
     padding: 3px 0;
 }
-.row-fluid .span3{
+.span3{
     color:#369;
     border: 1px solid #90989A;
     border-radius: 5px;
     background:#fff;
 }
-.row-fluid .span9{
-    padding:10px;
+.span4{
+    margin-left: 0 !important;
+}
+.span9{
     border: 1px solid #90989A;
     border-radius: 5px;
     background:#fff;
+    padding: 5px;
+    /*margin-left: 5%;*/
 }
-.container-fluid{
-   padding:10px;
-   margin-bottom: 60px;
-}
+
 /*for changeing jquery widjet */
 
 .ui-widget{
@@ -234,6 +227,9 @@ ul > li.for_dropdown{
     font-family: calibri,verdana,sans-serif;
     font-size: 1em;
 }
-
-
-
+.ui-widget-content{
+    border: none;
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    height: 30px;
+}

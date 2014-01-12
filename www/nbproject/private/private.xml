@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/home1/www/application/views/parts/content.php</file>
+            <file>file:/C:/xampp/htdocs/home1/www/application/views/loading/fullTeacherLoading_view.php</file>
+            <file>file:/C:/xampp/htdocs/home1/www/application/views/parts/header.php</file>
             <file>file:/C:/xampp/htdocs/home1/www/application/models/ion_auth_model.php</file>
-            <file>file:/C:/xampp/htdocs/home1/www/application/views/teachers/teacher_view.php</file>
+            <file>file:/C:/xampp/htdocs/home1/www/application/libraries/Ion_auth.php</file>
+            <file>file:/C:/xampp/htdocs/home1/www/application/controllers/auth.php</file>
         </group>
     </open-files>
 </project-private>

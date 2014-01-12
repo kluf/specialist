@@ -446,6 +446,7 @@ class Ion_auth
 	 **/
 	public function is_admin($id=false)
 	{
+            var_dump($id);exit;
 		$this->ion_auth_model->trigger_events('is_admin');
 
 		$admin_group = $this->config->item('admin_group', 'ion_auth');
@@ -465,6 +466,7 @@ class Ion_auth
 	 **/
 	public function in_group($check_group, $id=false, $check_all = false)
 	{
+//            var_dump($id);exit;
 		$this->ion_auth_model->trigger_events('in_group');
 
 		$id || $id = $this->session->userdata('user_id');
@@ -480,11 +482,11 @@ class Ion_auth
 		}
 		else
 		{
-			$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
+			$users_groups = $this->ion_auth_model->get_users_groups($id);
 			$groups_array = array();
 			foreach ($users_groups as $group)
 			{
-				$groups_array[$group->id] = $group->name;
+				$groups_array[$group['id']] = $group['name'];
 			}
 			$this->_cache_user_in_group[$id] = $groups_array;
 		}

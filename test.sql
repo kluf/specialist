@@ -2575,15 +2575,6 @@ DELIMITER ;
 
 /* ========== U S E R S ========== */
 
-/* Отримати пароль і сіль користувача по ідентифікатору користувача */
-DELIMITER \\
-CREATE PROCEDURE getUserSaltPass(idn INT)
-BEGIN
-SELECT `password`,`salt` FROM `users` WHERE `id` = idn;
-END;
-\\
-DELIMITER ;
-
 /* Отримати id для активації по коду */
 DELIMITER \\
 CREATE PROCEDURE getIdForActivation(code VARCHAR(255))
@@ -2629,7 +2620,7 @@ END;
 \\
 DELIMITER ;
 
-/* login */
+/* login definately true*/
 DELIMITER \\
 CREATE PROCEDURE login(my_email VARCHAR(255))
 BEGIN
@@ -2637,6 +2628,49 @@ SELECT `username`, `email`, `id`, `password`, `active`, `last_login` FROM `users
 END;
 \\
 DELIMITER ;
+
+/* Отримати пароль і сіль користувача по ідентифікатору користувача definately true*/
+DELIMITER \\
+CREATE PROCEDURE getUserSaltPass(idn INT)
+BEGIN
+SELECT `password`,`salt` FROM `users` WHERE `id` = idn;
+END;
+\\
+DELIMITER ;
+
+/* Update last login definately true*/
+DELIMITER \\
+CREATE PROCEDURE updateLastLogin(idn INT, currentTime INT)
+BEGIN
+UPDATE `users` SET `last_login` = currentTime WHERE `id` = idn;
+END;
+\\
+DELIMITER ;
+
+/* get users groups definately true*/
+DELIMITER \\
+CREATE PROCEDURE getUsersGroups(idn INT)
+BEGIN
+SELECT UG.`id`, UG.`user_id`, UG.`group_id`, G.`id`, G.`name`, G.`description`, U.`id`
+FROM `users_groups` as UG LEFT JOIN `groups` as G ON UG.`group_id` = G.`id`
+LEFT JOIN `users` as U ON UG.`user_id` = U.`id`
+WHERE U.`id` = idn;
+END;
+\\
+DELIMITER ;
+
+/* get all users groups definately true*/
+DELIMITER \\
+CREATE PROCEDURE getAllUsers()
+BEGIN
+SELECT U.`id` as id, U.`id` as user_id, U.`ip_address`, U.`username`, U.`password`, U.`salt`, U.`email`, U.`activation_code`, U.`forgotten_password_code`, U.`forgotten_password_time`, U.`remember_code`, U.`created_on`, U.`last_login`,  U.`active`,  U.`first_name`, U.`last_name`, U.`company`, U.`phone` 
+FROM `users` as U;
+END;
+\\
+DELIMITER ;
+
+
+
 /* ========== F A C U L T Y ========== */
 
 /* Отримати усі факультети */

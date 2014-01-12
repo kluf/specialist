@@ -5,17 +5,17 @@
     $inputDateStart = array(
         'name' => 'startSem',
         'id' => 'dateStart',
-        'class' => 'dateAdd required_my'
+        'class' => 'dateAdd required_my span5'
     );
     $inputDateFinal = array(
         'name' => 'endSem',
         'id' => 'dateFinal',
-        'class' => 'dateAdd required_my'
+        'class' => 'dateAdd required_my span5'
     );
-    $selAttr1 = 'class="span8"';
-    $labelAttr1 = array('class' => 'control-label span4');
-    $selAttr = 'class="span8"';
-    $labelAttr = array('class' => 'control-label');
+    $selAttr1 = 'class="span5"';
+    $labelAttr1 = array('class' => 'control-label span7');
+    $selAttr = 'class="span5"';
+    $labelAttr = array('class' => 'control-label span7');
     echo '<div class="control-group thumbnail getInfoByChange">'.
     form_label('Виберіть кафедру: ', 'kafedra', $labelAttr1)
         .'<div class="controls">'.form_dropdown('kafedra', $kafedra,'kafedra',$selAttr1).'</div></div>';

@@ -169,7 +169,7 @@ class Ion_auth_model extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
+//		$this->load->database();
 		$this->load->config('ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
@@ -302,25 +302,32 @@ class Ion_auth_model extends CI_Model
 		{
 			return FALSE;
 		}
-
 		$this->trigger_events('extra_where');
+                /* the last code doesn't work without next two lines*/
+                $stmt = $this->db->conn_id->prepare("SELECT 2+2");
+		$stmt->execute();
+                /* I don't know why*/
+                $stmt = $this->db->conn_id->prepare("CALL getUserSaltPass(?)");
+                $stmt->bindParam(1, $id, PDO::PARAM_STR);
+                $stmt->execute();
+//                var_dump($stmt);exit;
+//                $query = $stmt->fetch(PDO::FETCH_ASSOC);
+//		$query = $this->db->select('password, salt')
+//		                  ->where('id', $id)
+//		                  ->limit(1)
+//		                  ->get($this->tables['users']);
 
-		$query = $this->db->select('password, salt')
-		                  ->where('id', $id)
-		                  ->limit(1)
-		                  ->get($this->tables['users']);
-
-		$hash_password_db = $query->row();
-
-		if ($query->num_rows() !== 1)
+//		$hash_password_db = $query->row();
+                $hash_password_db = $stmt->fetch(PDO::FETCH_ASSOC);
+//                var_dump($hash_password_db);exit;
+		if ($stmt->rowCount() !== 1)
 		{
 			return FALSE;
 		}
-
-		// bcrypt
+//              bcrypt
 		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
 		{
-			if ($this->bcrypt->verify($password,$hash_password_db->password))
+			if ($this->bcrypt->verify($password,$hash_password_db['password']))
 			{
 				return TRUE;
 			}
@@ -335,12 +342,12 @@ class Ion_auth_model extends CI_Model
 		}
 		else
 		{
-			$salt = substr($hash_password_db->password, 0, $this->salt_length);
+			$salt = substr($hash_password_db['password'], 0, $this->salt_length);
 
 			$db_password =  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
 		}
 
-		if($db_password == $hash_password_db->password)
+		if($db_password == $hash_password_db['password'])
 		{
 			return TRUE;
 		}
@@ -393,14 +400,18 @@ class Ion_auth_model extends CI_Model
 
 		if ($code !== FALSE)
 		{
-			$query = $this->db->select($this->identity_column)
-			                  ->where('activation_code', $code)
-			                  ->limit(1)
-			                  ->get($this->tables['users']);
-
-			$result = $query->row();
-
-			if ($query->num_rows() !== 1)
+//			$query = $this->db->select($this->identity_column)
+//			                  ->where('activation_code', $code)
+//			                  ->limit(1)
+//			                  ->get($this->tables['users']);
+//                        
+//			$result = $query->row();
+                        $stmt = $this->db->conn_id->prepare("CALL getIdForActivation(?)");
+                        $stmt->bindParam(1,PDO::PARAM_INT);
+                        $stmt->execute();
+                        $query = $stmt->fetch(PDO::FETCH_NUM);
+                        $result = $query;
+			if ($query->rowCount() !== 1)
 			{
 				$this->trigger_events(array('post_activate', 'post_activate_unsuccessful'));
 				$this->set_error('activate_unsuccessful');
@@ -415,7 +426,10 @@ class Ion_auth_model extends CI_Model
 			);
 
 			$this->trigger_events('extra_where');
-			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+                        $stmt = $this->db->conn_id->prepare("CALL setActive(?)");
+                        $stmt->bindParam(1,$identity);
+                        $stmt->execute();
+//			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 		}
 		else
 		{
@@ -426,11 +440,15 @@ class Ion_auth_model extends CI_Model
 
 
 			$this->trigger_events('extra_where');
-			$this->db->update($this->tables['users'], $data, array('id' => $id));
+//			$this->db->update($this->tables['users'], $data, array('id' => $id));
+                        $stmt = $this->db->conn_id->prepare("CALL setActive(?)");
+                        $stmt->bindParam(1,$identity);
+                        $stmt->execute();
 		}
 
 
-		$return = $this->db->affected_rows() == 1;
+//		$return = $this->db->affected_rows() == 1;
+                $return = $this->db->conn_id->rowCount() == 1;
 		if ($return)
 		{
 			$this->trigger_events(array('post_activate', 'post_activate_successful'));
@@ -889,31 +907,35 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
-		                  ->where($this->identity_column, $this->db->escape_str($identity))
-		                  ->limit(1)
-		                  ->get($this->tables['users']);
+//		$query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
+//		                  ->where($this->identity_column, $this->db->escape_str($identity))
+//		                  ->limit(1)
+//		                  ->get($this->tables['users']);
+                $stmt = $this->db->conn_id->prepare("CALL login(?)");
+                $stmt->bindParam(1,$identity,PDO::PARAM_STR);
+//                $stmt->bindParam(2,$password,PDO::PARAM_STR);
+                $stmt->execute();
+                $query = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+//		if($this->is_time_locked_out($identity))
+//		{
+//			//Hash something anyway, just to take up time
+//			$this->hash_password($password);
+//
+//			$this->trigger_events('post_login_unsuccessful');
+//			$this->set_error('login_timeout');
+//
+//			return FALSE;
+//		}
 
-		if($this->is_time_locked_out($identity))
+		if (($stmt->rowCount()) === 1)
 		{
-			//Hash something anyway, just to take up time
-			$this->hash_password($password);
-
-			$this->trigger_events('post_login_unsuccessful');
-			$this->set_error('login_timeout');
-
-			return FALSE;
-		}
-
-		if ($query->num_rows() === 1)
-		{
-			$user = $query->row();
-
-			$password = $this->hash_password_db($user->id, $password);
-
+			$user = $query;
+			$password = $this->hash_password_db($user['id'], $password);
 			if ($password === TRUE)
-			{
-				if ($user->active == 0)
+			{   
+                         
+				if ($user['active'] == 0)
 				{
 					$this->trigger_events('post_login_unsuccessful');
 					$this->set_error('login_unsuccessful_not_active');
@@ -923,13 +945,13 @@ class Ion_auth_model extends CI_Model
 
 				$this->set_session($user);
 
-				$this->update_last_login($user->id);
+				$this->update_last_login($user['id']);
 
 				$this->clear_login_attempts($identity);
 
 				if ($remember && $this->config->item('remember_users', 'ion_auth'))
 				{
-					$this->remember_user($user->id);
+					$this->remember_user($user['id']);
 				}
 
 				$this->trigger_events(array('post_login', 'post_login_successful'));
@@ -1143,12 +1165,12 @@ class Ion_auth_model extends CI_Model
 
 	public function result()
 	{
-		$this->trigger_events('result');
+//		$this->trigger_events('result');
 
-		$result = $this->response->result();
-		$this->response->free_result();
+//		$result = $this->response->result();
+//		$this->response->free_result();
 
-		return $result;
+//		return $result;
 	}
 
 	public function result_array()
@@ -1193,11 +1215,14 @@ class Ion_auth_model extends CI_Model
 		else
 		{
 			//default selects
-			$this->db->select(array(
-			    $this->tables['users'].'.*',
-			    $this->tables['users'].'.id as id',
-			    $this->tables['users'].'.id as user_id'
-			));
+//			$this->db->select(array(
+//			    $this->tables['users'].'.*',
+//			    $this->tables['users'].'.id as id',
+//			    $this->tables['users'].'.id as user_id'
+//			));
+                        $stmt = $this->db->conn_id->prepare("CALL getAllUsers()");
+//                        $stmt -> execute();
+                        
 		}
 
 		//filter by group id(s) if passed
@@ -1269,8 +1294,8 @@ class Ion_auth_model extends CI_Model
 			$this->_ion_order_by = NULL;
 		}
 
-		$this->response = $this->db->get($this->tables['users']);
-
+//		$this->response = $this->db->get($this->tables['users']);
+                $this->response = $stmt->execute();
 		return $this;
 	}
 
@@ -1307,11 +1332,14 @@ class Ion_auth_model extends CI_Model
 
 		//if no id was passed use the current users id
 		$id || $id = $this->session->userdata('user_id');
-
-		return $this->db->select($this->tables['users_groups'].'.'.$this->join['groups'].' as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
-		                ->where($this->tables['users_groups'].'.'.$this->join['users'], $id)
-		                ->join($this->tables['groups'], $this->tables['users_groups'].'.'.$this->join['groups'].'='.$this->tables['groups'].'.id')
-		                ->get($this->tables['users_groups']);
+                $stmt = $this->db->conn_id->prepare("CALL getUsersGroups(?)");
+                $stmt->bindParam(1, $id, PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+//		return $this->db->select($this->tables['users_groups'].'.'.$this->join['groups'].' as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
+//		                ->where($this->tables['users_groups'].'.'.$this->join['users'], $id)
+//		                ->join($this->tables['groups'], $this->tables['users_groups'].'.'.$this->join['groups'].'='.$this->tables['groups'].'.id')
+//		                ->get($this->tables['users_groups']);
 	}
 
 	/**
@@ -1570,10 +1598,16 @@ class Ion_auth_model extends CI_Model
 		$this->load->helper('date');
 
 		$this->trigger_events('extra_where');
+                var_dump(time());
+//		$this->db->update($this->tables['users'], array('last_login' => time()), array('id' => $id));
 
-		$this->db->update($this->tables['users'], array('last_login' => time()), array('id' => $id));
-
-		return $this->db->affected_rows() == 1;
+//		return $this->db->affected_rows() == 1;
+                $currentTime = time();
+                $stmt = $this->db->conn_id->prepare("CALL updateLastLogin(?,?)");
+                $stmt->bindParam(1, $id, PDO::PARAM_INT);
+                $stmt->bindParam(2, $currentTime, PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->rowCount() == 1;
 	}
 
 	/**
@@ -1614,21 +1648,18 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function set_session($user)
 	{
-
+                
 		$this->trigger_events('pre_set_session');
 
 		$session_data = array(
-		    'identity'             => $user->{$this->identity_column},
-		    'username'             => $user->username,
-		    'email'                => $user->email,
-		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-		    'old_last_login'       => $user->last_login
+		    'identity'             => $user[$this->identity_column],
+		    'username'             => $user['username'],
+		    'email'                => $user['email'],
+		    'user_id'              => $user['id'], //everyone likes to overwrite id so we'll use user_id
+		    'old_last_login'       => $user['last_login']
 		);
-
 		$this->session->set_userdata($session_data);
-
 		$this->trigger_events('post_set_session');
-
 		return TRUE;
 	}
 
@@ -1716,7 +1747,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$user = $query->row();
 
-			$this->update_last_login($user->id);
+			$this->update_last_login($user['id']);
 
 			$this->set_session($user);
 

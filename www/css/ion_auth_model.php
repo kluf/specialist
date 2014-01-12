@@ -288,7 +288,6 @@ class Ion_auth_model extends CI_Model
                 $stmt->bindParam(1,$id,PDO::PARAM_INT);
 		$stmt->execute();
                 $query = $stmt->fetch(PDO::FETCH_NUM);
-                var_dump($id);exit;
 		$hash_password_db = $query;
 
 		if ($stmt->rowCount() !== 1)
@@ -933,13 +932,13 @@ class Ion_auth_model extends CI_Model
 
 				$this->set_session($user);
 
-				$this->update_last_login($user->id);
+				$this->update_last_login($user['id']);
 
 				$this->clear_login_attempts($identity);
 
 				if ($remember && $this->config->item('remember_users', 'ion_auth'))
 				{
-					$this->remember_user($user->id);
+					$this->remember_user($user['id']);
 				}
 
 				$this->trigger_events(array('post_login', 'post_login_successful'));
@@ -1628,12 +1627,12 @@ class Ion_auth_model extends CI_Model
 
 		$session_data = array(
 		    'identity'             => $user->{$this->identity_column},
-		    'username'             => $user->username,
-		    'email'                => $user->email,
-		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-		    'old_last_login'       => $user->last_login
+		    'username'             => $user['username'],
+		    'email'                => $user['email'],
+		    'user_id'              => $user['id'], //everyone likes to overwrite id so we'll use user_id
+		    'old_last_login'       => $user['last_login']
 		);
-
+                var_dump($session_data);exit;
 		$this->session->set_userdata($session_data);
 
 		$this->trigger_events('post_set_session');

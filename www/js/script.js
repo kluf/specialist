@@ -42,41 +42,9 @@ $(document).ready(function() {
             $("ul.bxslider").append('<li class="bx-clone" style="float: left; list-style: none outside none; position: relative; width: 550px;"><span id="chart'+i+'" class="example-chart" style="height:300px;width:500px;display:block;"></span></li>');
             $("ul.bxslider").append('<li class="bx-clone" style="float: left; list-style: none outside none; position: relative; width: 550px;"><span id="pie'+i+'" class="example-chart" style="height:300px;width:500px;display:block;"></span></li>');
         }
-    }
-
-    //begin chart
-    function addChart(startSemestr,finishSemestr) {
-        $.ajax({
-            type: 'GET',
-            url: '/index.php/Loading_controller/getDataForCharts',
-            dataType: 'json',
-            data : {
-                begSem : startSemestr,
-                endSem : finishSemestr
-            },
-            success: function(data){
-                var quantity = data['0'].length;
-                for(var i=0;i<quantity;i++){
-                    subQuantity = data['0'][i].length;
-                    var line1 = [];
-                    for(var j=0;j<subQuantity;j++){
-                        line1.push([data[0][i][j]['name'], data[0][i][j]['sum_teacher_calc']/1]);
-                    }
-                    idForChart = '#chart'+i;    
-                    $(idForChart).jqplot([line1], {
-                    title: 'Навантаження по кафедрі (лінійний)',
-                    seriesDefaults: {
-                        renderer: $.jqplot.BarRenderer
-                    },
-                    axes: {
-                        xaxis: {
-                            renderer: $.jqplot.CategoryAxisRenderer
-                        }
-                    }
-                });
-                }
-            }
-        });
+        $('.bxslider').bxSlider({
+            auto: true
+        });  
     }
     
     function addPie(startSemestr,finishSemestr) {
@@ -89,15 +57,18 @@ $(document).ready(function() {
                 endSem : finishSemestr
             },
             success: function(data){
-                quantity = data['0'].length;
-                for(var i=0;i<data[0].length;i++){
-                    var dataPie = [];
-                    subQuantity = data['0'][i].length;
-                    for(var j=0;j<subQuantity-1;j++){
+                var quantity = data[0].length - 1,
+                    i = 0;
+                addChartArea(quantity);
+                for (i; i < quantity; i++) {
+                    var dataPie = [],
+                    subQuantity = data['0'][i].length - 1,
+                    j = 0;
+                    for (j; j < subQuantity; j++) {
                         dataPie.push([data[0][i][j]['name'], data[0][i][j]['sum_teacher_calc']/1]);
                     }
-                    idForChart = '#pie'+i;    
-                    $(idForChart).jqplot([dataPie], {
+                    idForChart1 = '#pie'+i;    
+                    $(idForChart1).jqplot([dataPie], {
                     title: 'Навантаження по кафедрі (тортик)',
                     seriesDefaults: {
                         // Make this a pie chart.
@@ -109,6 +80,18 @@ $(document).ready(function() {
                         }
                     },
                     legend: {show: true, location: 'e'}
+                });
+                    idForChart = '#chart'+i;    
+                    $(idForChart).jqplot([dataPie], {
+                    title: 'Навантаження по кафедрі (лінійний)',
+                    seriesDefaults: {
+                        renderer: $.jqplot.BarRenderer
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer
+                        }
+                    }
                 });
                 }
             }
@@ -155,14 +138,8 @@ $(document).ready(function() {
         return false;
     });
     
-    
-    $('#accordion').dcAccordion({
-        eventType: 'click',
-        autoClose: true,
-        saveState: true,
-        disableLink: true,
-        speed: 'slow',
-        pager: 'false'
+    $('.accordion').accordion({
+        collapsible : true
     });
     
     $(".dateAdd").datepicker({
@@ -183,8 +160,8 @@ $(document).ready(function() {
         var startSemestr =  $("#begSem").val() || "2009-09-01";
         var finishSemestr = $("#endSem").val() || "2010-05-25"; 
         $(".bx-wrapper").remove();
-        addChartArea(5);
-        addChart(startSemestr,finishSemestr);
+//        addChartArea(5);
+//        addChart(startSemestr,finishSemestr);
         addPie(startSemestr,finishSemestr);
         $('.bxslider').unbind('bxSlider').bxSlider({
             auto: true
