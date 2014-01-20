@@ -138,9 +138,7 @@ $(document).ready(function() {
         return false;
     });
     
-    $('.accordion').accordion({
-        collapsible : true
-    });
+    $('.accordion').accordion({collapsible: true});
     
     $(".dateAdd").datepicker({
             changeMonth: true,

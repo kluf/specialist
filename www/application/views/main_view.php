@@ -20,10 +20,14 @@
         <script src="/js/script.js"></script>
     </head>
     <body>
-        <div id="containerMy" class="container-fluid">
-            <?php $this->load->view('/parts/header');?>
-            <?php $this->load->view('/parts/content');?>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <?php $this->load->view('/parts/header');?>
+                <div class="row-fluid">
+                <?php $this->load->view('/parts/content');?>
+                </div>
+                <?php $this->load->view('/parts/footer');?>
+            </div>
         </div>
-        <?php $this->load->view('/parts/footer');?>
     </body>
 </html>

@@ -9,6 +9,7 @@
         <ul class="nav">
             <li><a href="/about/">Про сайт</a></li>
             <li><a href="<?=base_url()."auth";?>">Реєстрація</a></li>
+            <li><a href="<?=base_url()."auth/logout";?>">Вийти</a></li>
         </ul>
     </div>  
 </div>

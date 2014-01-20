@@ -1,5 +1,4 @@
 <?php  
-    $this->load->helper('form');
     $formAttrs = array('class' => 'form-horizontal thumbnail'
     );
     $inputDateStart = array(

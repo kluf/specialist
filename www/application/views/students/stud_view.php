@@ -1,4 +1,10 @@
+<?php $i = 0;?>
 <?php foreach($content as $item): ?>
+<?php
+    if ($i == 0) {
+        echo '<div class="row-fluid">';
+    }
+?>
 <?php echo
 "<div class='span4'>
     <div class='thumbnail'>
@@ -13,5 +19,12 @@
                 <a class='btn btn-info' href='/index.php/student_controller/getStudentById/{$item['id']}'>Детальні дані</a>
         </div>"
 ."</div></div>";
+$i++;
 ?>
-<?php endforeach; ?>
+<?php
+    if ($i == 3) {
+        echo '</div>';
+        $i = 0;
+    }
+?>
+<?php  endforeach; ?>

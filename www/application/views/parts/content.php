@@ -1,7 +1,7 @@
     <div class="row-fluid">
         <!--Sidebar content-->
-        <div class="span3 bs-docs-sidebar">
-            <div class="left_menu_img"><p class="menu_site">Навігація</p></div>
+        <div class="span3">
+            <p class="menu_site">Навігація</p>
             <ul class="nav nav-list bs-docs-sidenav affix-top">
                 <li><a href="<?=base_url().'faculty_controller/';?>">Факультети</a></li>
                 <li><a href="<?=base_url().'kafedra_controller/';?>">Кафедри</a></li>
@@ -43,8 +43,8 @@
         </div>
         <div class="span9">
             <div class="row-fluid">
-                    <?php $this->load->view($view, $content = 0); ?>
-             </div>
+                <?php $this->load->view($view, $content = 0); ?>
+            </div>
             <div class="row-fluid">
                     <?php 
                     if (isset($pages)) {

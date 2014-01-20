@@ -1,13 +1,12 @@
-<div>
-<?php //var_dump($content);exit;
-    $this->load->helper('form');
+<div class="thumbnail">
+<?php 
     echo form_open(base_url().'lesson_controller/getLessonByKafedra/');
-    echo form_dropdown('kafedra',$kafedra);
-    echo form_submit(array('name' => 'updateGroup',
+    echo '<div class="span4">'.form_dropdown('kafedra',$kafedra).'</div>';
+    echo '<div class="span4">'.form_submit(array('name' => 'updateGroup',
                     'type' => 'submit',
                     'class' => 'btn btn-success',
                     'value' => 'Отримати предмети з кафедри'
-));
+)).'</div>';
     echo form_close();
 ?>
 </div>

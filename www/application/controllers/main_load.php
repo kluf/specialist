@@ -606,7 +606,7 @@ class Main_load extends CI_Controller {
                 $data['mainLoad'] = $this->main_load_model->getMainTeacherLoad($attrs);
                 $data['practLoad'] = $this->main_load_model->getPracticeTeacherLoad($attrs);
                 $data['sumLoad'] = $this->main_load_model->getTeachersLoadCount($attrs);
-                
+//                var_dump($data);exit;
             }
             $this->load->model('kafedra_model');
             $data['kafedra'] = $this->arrayForSelect($this->kafedra_model->getAllKafedra(),'id','kname');
