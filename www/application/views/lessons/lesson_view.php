@@ -1,14 +1,17 @@
-<div class="thumbnail">
-<?php 
+<div class="row-fluid">
+    <div class="thumbnail">
+<?php
+    $selAttr = 'class="span6"';
     echo form_open(base_url().'lesson_controller/getLessonByKafedra/');
-    echo '<div class="span4">'.form_dropdown('kafedra',$kafedra).'</div>';
-    echo '<div class="span4">'.form_submit(array('name' => 'updateGroup',
+    echo form_dropdown('kafedra',$kafedra,'kafedra', $selAttr);
+    echo form_submit(array('name' => 'updateGroup',
                     'type' => 'submit',
-                    'class' => 'btn btn-success',
+                    'class' => 'btn btn-success span6',
                     'value' => 'Отримати предмети з кафедри'
-)).'</div>';
+));
     echo form_close();
 ?>
+    </div>
 </div>
 <?php foreach($lesson as $item): ?>
 <?php echo "<div class='thumbnail'>

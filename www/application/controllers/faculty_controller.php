@@ -46,7 +46,7 @@ class Faculty_controller extends CI_Controller {
    
      function addFacultyView(){
         $this->load->model('faculty_model');
-        $data['view'] = '/faculty/add_faculty_view';
+        $data['view'] = '/faculty/update_faculty_view';
         $data['title'] = 'Додавання факультету';
         $this->load->view('main_view',$data);
     }
