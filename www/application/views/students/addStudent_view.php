@@ -1,42 +1,51 @@
 <?php
-$this->load->helper('form');
 $formAttrs = array('class' => 'form-horizontal thumbnail',
                     'enctype' => 'multipart/form-data'
 );
-$inputSurname = array('name' => 'surname',
-                     'id' => 'surname',
-                  'class' => 'required_my surname'
+$inputSurname = array(
+    'name' => 'surname',
+    'id' => 'surname',
+    'class' => 'required_my surname'
 );
-$inputName = array('name' => 'name',
-                'id' => 'name',
-                'class' => 'required_my'
+$inputName = array(
+    'name' => 'name',
+    'id' => 'name',
+    'class' => 'required_my'
 );
-$inputPatronimic = array('name' => 'patronimic',
-                        'id' => 'patronimic',
-                        'class' => 'required_my'
+$inputPatronimic = array(
+    'name' => 'patronimic',
+    'id' => 'patronimic',
+    'class' => 'required_my'
 );
-$inputZalikova1 = array('name' => 'zalikova1',
-                        'id' => 'zalikova1',
-                         'class' => 'required_my'
+$inputZalikova1 = array(
+    'name' => 'zalikova1',
+    'id' => 'zalikova1',
+     'class' => 'required_my'
 );
-$inputPhone1 = array('name' => 'phone1',
-                    'id' => 'phone1'
+$inputPhone1 = array(
+    'name' => 'phone1',
+    'id' => 'phone1'
 );
-$inputPassport = array('name' => 'passport',
-                        'id' => 'passport'
+$inputPassport = array(
+    'name' => 'passport',
+    'id' => 'passport'
 );
-$inputSurname2 = array('name' => 'surname2',
-                        'id' => 'surname2'
+$inputSurname2 = array(
+    'name' => 'surname2',
+    'id' => 'surname2'
 );
-$inputZalikova2 = array('name' => 'zalikova2',
-                        'id' => 'zalikova2'
+$inputZalikova2 = array(
+    'name' => 'zalikova2',
+    'id' => 'zalikova2'
 );
-$inputFile = array('name' => 'userfile',
-                    'id' => 'userfile'
+$inputFile = array(
+    'name' => 'userfile',
+    'id' => 'userfile'
 );
-$inputSubmit = array('name' => 'addUser',
-                    'type' => 'submit',
-                    'class' => 'btn btn-success span12'
+$inputSubmit = array(
+    'name' => 'addUser',
+    'type' => 'submit',
+    'class' => 'btn btn-success span12'
 );
 $labelAttr = array('class' => 'control-label');
 
@@ -101,8 +110,7 @@ echo '<div class="control-group">'.
 echo '<div class="control-group">'.
     form_label('Завантажте фото: ', 'userfile', $labelAttr).
         '<div class="controls">'.form_upload($inputFile).'</div></div>';
-echo '<div class="control-group">'.
-    form_submit($inputSubmit).'</div></fieldset>';
+echo form_submit($inputSubmit).'</fieldset>';
 form_close();
 
 

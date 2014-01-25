@@ -13,16 +13,30 @@
 ?>
     </div>
 </div>
-<?php foreach($lesson as $item): ?>
-<?php echo "<div class='thumbnail'>
-            	  <div class='caption'>
-                        <p><strong>{$item['name']}</strong></p>
-                        <p>{$item['kname']}</p>
-                            <div class='forDelUpd'>
-                    <a class='btn btn-warning' type='button' href='/index.php/lesson_controller/updateLessonView/".$item['id']."/'>Редагувати </a>
-                    <form  method='POST' action='/index.php/lesson_controller/removeLesson/'><input type='hidden' name='id' value = '".$item['id']."'><button class='btn btn-danger' type='submit'>Видалити </button></form>
-                  </div>
-		  </div>
-		</div>";
+<?php $i = 0;
+foreach($lesson as $item): ?>
+<?php
+    if ($i == 0) {
+        echo '<div class="row-fluid">';
+    }
+?>
+<?php echo
+"<div class='span4'>
+    <div class='thumbnail'>
+        <div class='caption'>
+              <p><strong>{$item['name']}</strong></p>
+              <p>{$item['kname']}</p>
+                  <div class='forDelUpd'>
+          <a class='btn btn-warning' type='button' href='/index.php/lesson_controller/updateLessonView/".$item['id']."/'>Редагувати </a>
+          <form  method='POST' action='/index.php/lesson_controller/removeLesson/'><input type='hidden' name='id' value = '".$item['id']."'><button class='btn btn-danger' type='submit'>Видалити </button></form>
+        </div>
+    </div>
+  </div>
+</div>";
+$i++;
+    if ($i == 3) {
+        echo '</div>';
+        $i = 0;
+    }
 ?>
 <?php endforeach; ?>

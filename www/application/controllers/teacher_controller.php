@@ -41,7 +41,7 @@ class Teacher_controller extends CI_controller {
      function addTeacherView(){
         $this->load->model('kafedra_model');
         $data['kafedra'] = $this->arrayForSelect($this->kafedra_model->getAllKafedra(),'id','kname');
-        $data['view'] = '/teachers/addTeacher_view';
+        $data['view'] = '/teachers/editTeacher_view';
         $data['title'] = 'Додавання викладача';
         $this->load->view('main_view',$data);
     }
@@ -94,7 +94,6 @@ class Teacher_controller extends CI_controller {
     }
     
     function updateTeacher(){
-        $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
         $this->form_validation->set_rules('id', 'Назва кафедри','trim|required|xss_clean');

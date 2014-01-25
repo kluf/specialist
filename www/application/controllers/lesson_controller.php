@@ -23,7 +23,6 @@ class Lesson_controller extends CI_Controller {
         $this->load->model('lesson_model');
         $data['title'] = 'Предмети';
         $data['view'] = '/lessons/lesson_view';
-        //var_dump($this->input->post('kafedra'));exit;
         $kid = $this->security->xss_clean($this->input->post('kafedra'));
         $data['lesson'] = $this->lesson_model->getLessonByKafedra($kid);
         $this->load->view('main_view',$data);
@@ -40,16 +39,14 @@ class Lesson_controller extends CI_Controller {
      function addLessonView(){
         $this->load->model('kafedra_model');
         $data['kafedra'] = $this->arrayForSelect($this->kafedra_model->getAllKafedra(),'id','kname');
-        $data['view'] = '/lessons/add_lesson_view';
+        $data['view'] = '/lessons/edit_lesson_view';
         $data['title'] = 'Додавання предмету';
         $this->load->view('main_view',$data);
-        
     }
     
     function addLesson(){
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
-        //var_dump($_POST);exit;
         $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
         $this->form_validation->set_rules('kafedra', 'Назва кафедри','trim|required|xss_clean');
         $this->form_validation->set_rules('name', 'Назва предмету','trim|required|xss_clean');

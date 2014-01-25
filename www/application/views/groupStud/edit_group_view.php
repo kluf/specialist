@@ -1,41 +1,50 @@
 <?php 
-$this->load->helper('form');
-$formAttrs = array('class' => 'add_smth'
-);
-
+$formAttrs = array('class' => 'add_smth');
 $inputGOSName = array(
     'name' => 'gosName',
     'id' => 'gosName',
-    'value' => $group["GOSname"],
     'class' => 'required_my'
 );
 $inputCnt = array(
     'name' => 'cnt',
-    'id' => 'cnt',
-    'value' => $group['count_stud']
+    'id' => 'cnt'
 );
-$inputSubmit = array('name' => 'updateGroup',
-                    'type' => 'submit',
-                    'class' => 'btn btn-success',
-                    'value' => 'Оновити дані про групу студентів'
+$inputSubmit = array(
+    'name' => 'updateGroup',
+    'type' => 'submit',
+    'class' => 'btn btn-success span12',
+    'value' => 'Додати групу студентів'
 );
 $inputTextArea = array(     
     'name' => 'description',
-    'cols' => 15,
-    'rows' => 3,
-    'id' => 'description',
-    'value' => $group['description']
+    'id' => 'description'
 );
-?>
-
-<?=form_open(base_url().'groupStud_controller/updateGroupStud/',$formAttrs);?>
-    <?php echo form_label('Виберіть кафедру: ', 'kafedra');echo form_dropdown('kafedra', $kafedra,$group['kid']);?>
-    <?php echo form_label('Виберіть форму навчання: ', 'formaNavch');echo form_dropdown('formaNavch', $formaNavch,$group['sfid']);?>
-    <?php echo form_label('Назва групи: ', 'gosName');echo form_input($inputGOSName);?>
-    <?php echo form_label('Кількість студентів: ', 'cnt');echo form_input($inputCnt);
-    echo form_label('Опис групи: ', 'description');echo form_textarea($inputTextArea);
+$labelAttr = array('class' => 'control-label');
+if (isset($group['id'])) {
+    $inputGOSName['value'] = $group["GOSname"];
+    $inputCnt['value'] = $group['count_stud'];
+    $inputSubmit['value'] = 'Оновити дані про групу студентів';
+    $inputTextArea['value'] = $group['description'];
+    echo form_open(base_url().'groupStud_controller/updateGroupStud/',$formAttrs).'<fieldset><legend>'.$inputSubmit['value'].'</legend>';
+    echo '<div class="control-group">'.form_label('Виберіть кафедру: ', 'kafedra', $labelAttr);
+    echo '<div class="controls">'.form_dropdown('kafedra', $kafedra,$group['kid']).'</div></div>';
+    echo '<div class="control-group">'.form_label('Виберіть форму навчання: ', 'formaNavch', $labelAttr);
+    echo form_dropdown('formaNavch', $formaNavch,$group['sfid']);
     echo form_hidden('id',$group['id']);
-    echo form_submit($inputSubmit);
-    ?>
-<?=form_close();?>
+} else {
+    echo form_open(base_url().'groupStud_controller/addGroupStud/',$formAttrs).'<fieldset><legend>'.$inputSubmit['value'].'</legend>';
+    echo '<div class="control-group">'.form_label('Виберіть кафедру: ', 'kafedra', $labelAttr);
+    echo '<div class="controls">'.form_dropdown('kafedra', $kafedra).'</div></div>';  
+    echo '<div class="control-group">'.form_label('Виберіть форму навчання: ', 'formaNavch', $labelAttr);
+    echo '<div class="controls">'.form_dropdown('formaNavch', $formaNavch).'</div></div>';
+}  
+echo '<div class="control-group">'.form_label('Назва групи: ', 'gosName', $labelAttr);
+echo '<div class="controls">'.form_input($inputGOSName).'</div></div>';
+echo '<div class="control-group">'.form_label('Кількість студентів: ', 'cnt', $labelAttr);
+echo '<div class="controls">'.form_input($inputCnt).'</div></div>';
+echo '<div class="control-group">'.form_label('Опис групи: ', 'description', $labelAttr);
+echo '<div class="controls">'.form_textarea($inputTextArea).'</div></div>';
+echo form_submit($inputSubmit).'</fieldset>';
+echo form_close();
+?>
 

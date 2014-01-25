@@ -50,7 +50,7 @@ class Kafedra_controller extends CI_Controller {
      function addKafedraView(){
         $this->load->model('faculty_model');
         $data['content']['faculty'] = $this->arrayForSelect($this->faculty_model->getFaculty(), 'id', 'name');
-        $data['view'] = '/kafedra/add_kafedra_view';
+        $data['view'] = '/kafedra/edit_kafedra_view';
         $data['title'] = 'Додавання кафедри';
         $this->load->view('main_view',$data);
     }

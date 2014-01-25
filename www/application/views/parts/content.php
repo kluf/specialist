@@ -45,7 +45,7 @@
             <div class="row-fluid">
                 <?php $this->load->view($view, $content = 0); ?>
             </div>
-            <div class="row-fluid">
+            <div class="row-fluid text-center">
                     <?php 
                     if (isset($pages)) {
                         echo $pages;

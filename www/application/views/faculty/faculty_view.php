@@ -4,9 +4,9 @@
     <div class='thumbnail'>
     <div class='row-fluid'>
         <div class='span8'>
-            <div class='row-fluid'>{$item['name']}</div>
+            <div class='row-fluid thumbnail'>{$item['name']}</div>
             <div class='row-fluid'>{$item['description']}</div>
-            <div class='row-fluid'>
+            <div class='row-fluid thumbnail'>
                 <a class='btn btn-warning' type='button' href='/index.php/faculty_controller/updateFacultyView/" . $item['id'] . "/'>Редагувати </a>
                 <form  method='POST' action='/index.php/faculty_controller/removeFaculty/'><input type='hidden' name='id' value = '" . $item['id'] . "'><button class='btn btn-danger' type='submit'>Видалити </button></form>
             </div>

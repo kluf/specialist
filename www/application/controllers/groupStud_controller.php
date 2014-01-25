@@ -61,7 +61,7 @@ class GroupStud_controller extends CI_Controller {
         $data['kafedra'] = $this->arrayForSelect($this->kafedra_model->getAllKafedra(), 'id', 'kname');
         $this->load->model('formaNavch_model');
         $data['formaNavch'] = $this->arrayForSelect($this->formaNavch_model->getFormaNavch(), 'id', 'name');
-        $data['view'] = '/groupStud/add_group_view';
+        $data['view'] = '/groupStud/edit_group_view';
         $data['title'] = 'Додавання групи студентів';
         $this->load->view('main_view',$data);
     }
@@ -101,7 +101,7 @@ class GroupStud_controller extends CI_Controller {
         $this->load->model('group_model');
         $data['group'] = $this->group_model->getGroupStudById($id);
         $data['view'] = '/groupStud/edit_group_view';
-        $data['title'] = 'Редагування кафедри';
+        $data['title'] = 'Редагування групи студентів';
         $this->load->view('main_view',$data);
     }
     
