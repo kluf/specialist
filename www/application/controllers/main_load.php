@@ -87,7 +87,7 @@ class Main_load extends CI_Controller {
             $this->load->model('auditory_model');
             $data['auditory'] = $this->arrayForSelect($this->auditory_model->getAuditory(),'id','number_aud');
             $data['title'] = 'Додати головне навантаження';
-            $data['view'] = '/loading/addMainLoad_view';
+            $data['view'] = '/loading/editMainLoad_view';
             $this->load->view('main_view',$data);
         }
         public function addPersLoadView(){

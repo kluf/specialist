@@ -1,5 +1,5 @@
 <?php
-$formAttrs = array('class' => 'add_smth',
+$formAttrs = array('class' => 'form-horizontal',
     'enctype' => 'multipart/form-data'
 );
 $inputTextArea = array(

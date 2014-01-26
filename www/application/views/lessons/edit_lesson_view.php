@@ -1,5 +1,5 @@
 <?php 
-$formAttrs = array('class' => 'add_smth'
+$formAttrs = array('class' => 'add_smth form-horizontal'
 );
 $inputName = array(
     'name' => 'name',

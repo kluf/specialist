@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title><?=$title?></title>
+        <title><?= $title ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -22,12 +22,12 @@
     <body>
         <div class="container-fluid">
             <div class="row-fluid">
-                <?php $this->load->view('/parts/header');?>
+                <?php $this->load->view('/parts/header'); ?>
                 <div class="row-fluid">
-                <?php $this->load->view('/parts/content');?>
+                    <?php $this->load->view('/parts/content'); ?>
                 </div>
-                <?php $this->load->view('/parts/footer');?>
             </div>
-        </div>
+            
+        </div><?php $this->load->view('/parts/footer'); ?>
     </body>
 </html>

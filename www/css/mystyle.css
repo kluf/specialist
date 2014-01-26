@@ -37,42 +37,33 @@ body{
     border:3px dotted #63A0B2;
     padding:10px;
 }
-form.add_smth label{
+/*form.add_smth label{
     background: #63A0B2;
     padding: 10px 30px;
     color: #fff;
     font-weight: bold;
-}
+}*/
 fieldset legend{
     text-align: center;
     font:24px calibri,verdana,sans-serif;
     font-style: italic;
     color: #90989A;
 }
-form.add_smth input,form.add_smth select{
+/*form.add_smth input,form.add_smth select{
     margin: -45px 10px 5px 280px;
-}
-form.add_smth input[type='checkbox']{
-    margin: -45px 10px 5px 280px;
-}
-.forDelUpd{
+}*/
+/*.forDelUpd{
     margin-top: 10px;
-}
-.forDelUpd form{
+}*/
+/*.forDelUpd form{
     display: inline;
-}
-form input[type='radio']{
-    margin: -45px 10px 5px 280px;
-}
-form input[type='submit']{
+}*/
+/*form input[type='submit']{
     margin: 5px auto;
-}
-.getInfoByChange{
-    background: #f8b9b7;
-    /*line-height: 40px;
-    padding-left: 20px*/;
-    font-weight: bold;
-}
+}*/
+/*.getInfoByChange{
+    padding-top: 5px;
+}*/
 #My_pages{
     margin:0 auto;
     text-align: center;
@@ -82,10 +73,10 @@ form input[type='submit']{
     padding: 5px 10px;
     color: #D0D0D0;
 }
-.add_smth{
+/*.add_smth{
     padding:10px;
     width: 550px;
-}
+}*/
 .for_wide_table{
     overflow-x: auto;
 }
@@ -152,9 +143,9 @@ p.menu_site:after{
 #footer {
     background: none repeat 0 0 #90989A;
     height: 50px;
-    margin: 10px 0 0;
     width: 1020px;
     position: relative;
+    margin: -50px auto 0 auto;
 }
 #footer h5{
     line-height: 30px;
@@ -214,10 +205,32 @@ div.row-fluid .span9, div.row-fluid .span3{
     padding: 5px;
     border-radius: 5px;
 }
-.add_smth textArea{
-    margin: -45px 10px 5px 280px;
-    width: 50%;
-    height: 10%;
+textarea{
+    width: 80%;
+}
+.form-horizontal label, .form-horizontal input[type='submit']{
+    color: #fff;
+    font-weight: bold;
+}
+.span9 .row-fluid > .control-group{
+    background: #f8b9b7;
+}
+.span9 .row-fluid .control-group .control-label{
+    float: left;
+    padding-top: 5px;
+    text-align: right;
+    width: 160px;
+    font-weight: bold;
+}
+.span9 .row-fluid .control-group .controls{
+    margin-left: 180px;
+}
+.container-fluid > .row-fluid{
+    min-height: 100%;
+    padding-bottom: 60px;
+}
+.footer{
+    display: block;
 }
 /*for changeing jquery widjet */
 

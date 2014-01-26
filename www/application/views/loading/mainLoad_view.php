@@ -1,4 +1,5 @@
 <?php
+$formAttrs = array('class' => 'form-horizontal thumbnail');
 $inputDateStart = array(
     'name' => 'startSem',
     'id' => 'dateStart',
@@ -17,13 +18,20 @@ $inputSubmit = array('name' => 'getTeacherData',
     'class' => 'btn btn-success span12',
     'value' => 'Отримати навантаження на викладача'
 );
-echo form_label('Виберіть кафедру: ', 'kafedra', $attr);
-echo form_dropdown('kafedra', $kafedra);
-echo form_open(base_url() . 'main_load/index/').'<fieldset><legend>'.$inputSubmit['value'].'</legend>';
-echo form_dropdown('teacher', $teacher);
-echo form_input($inputDateStart);
-echo form_input($inputDateFinal);
-echo form_submit($inputSubmit).'</fieldset>';;
+$labelAttr = array('class' => 'control-label');
+echo '<div class="control-group">'.form_label('Виберіть кафедру: ', 'kafedra', $attr);
+echo '<div class="controls">'.form_dropdown('kafedra', $kafedra).'</div></div>';
+echo form_open(base_url() . 'main_load/index/', $formAttrs).'<fieldset><legend>'.$inputSubmit['value'].'</legend>';
+echo '<div class="control-group">' .
+ form_label('Виберіть викладача: ', 'dateStart', $labelAttr)
+ . '<div class="controls">'. form_dropdown('teacher', $teacher).'</div></div>';
+echo '<div class="control-group">' .
+ form_label('Виберіть дату початок семестру: ', 'dateStart', $labelAttr)
+ . '<div class="controls">'.form_input($inputDateStart).'</div></div>';
+echo '<div class="control-group">' .
+ form_label('Виберіть дату кінця семестру: ', 'dateFinal', $labelAttr)
+ . '<div class="controls">'.form_input($inputDateFinal).'</div></div>';
+echo form_submit($inputSubmit).'</fieldset>';
 echo form_close();
 if (isset($mainLoad)) {
     ?>
