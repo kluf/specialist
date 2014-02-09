@@ -490,9 +490,13 @@ class Ion_auth_model extends CI_Model
 		);
 
 		$this->trigger_events('extra_where');
-		$this->db->update($this->tables['users'], $data, array('id' => $id));
-
-		$return = $this->db->affected_rows() == 1;
+                $smt = $this->db->conn_id->prepare("Call setInactive(?,?)");
+                $stmt->bindParam(1, $id, PDO::PARAM_INT);
+                $stmt->bindParam(2, $activation_code, PDO::PARAM_STR);
+//		$this->db->update($this->tables['users'], $data, array('id' => $id));
+                $stmt->execute();
+//		$return = $this->db->affected_rows() == 1;
+                $return = $stmt->affectedRows() == 1;
 		if ($return)
 			$this->set_message('deactivate_successful');
 		else
@@ -1203,17 +1207,17 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('users');
 
-		if (isset($this->_ion_select) && !empty($this->_ion_select))
-		{
-			foreach ($this->_ion_select as $select)
-			{
-				$this->db->select($select);
-			}
-
-			$this->_ion_select = array();
-		}
-		else
-		{
+//		if (isset($this->_ion_select) && !empty($this->_ion_select))
+//		{
+//			foreach ($this->_ion_select as $select)
+//			{
+//				$this->db->select($select);
+//			}
+//
+//			$this->_ion_select = array();
+//		}
+//		else
+//		{
 			//default selects
 //			$this->db->select(array(
 //			    $this->tables['users'].'.*',
@@ -1223,80 +1227,83 @@ class Ion_auth_model extends CI_Model
                         $stmt = $this->db->conn_id->prepare("CALL getAllUsers()");
 //                        $stmt -> execute();
                         
-		}
+//		}
 
 		//filter by group id(s) if passed
-		if (isset($groups))
-		{
-			//build an array if only one group was passed
-			if (is_numeric($groups))
-			{
-				$groups = Array($groups);
-			}
-
-			//join and then run a where_in against the group ids
-			if (isset($groups) && !empty($groups))
-			{
-				$this->db->distinct();
-				$this->db->join(
-				    $this->tables['users_groups'],
-				    $this->tables['users_groups'].'.'.$this->join['users'].'='.$this->tables['users'].'.id',
-				    'inner'
-				);
-
-				$this->db->where_in($this->tables['users_groups'].'.'.$this->join['groups'], $groups);
-			}
-		}
-
-		$this->trigger_events('extra_where');
+//		if (isset($groups))
+//		{
+//			//build an array if only one group was passed
+//			if (is_numeric($groups))
+//			{
+//				$groups = Array($groups);
+//			}
+//
+//			//join and then run a where_in against the group ids
+//			if (isset($groups) && !empty($groups))
+//			{
+//				$this->db->distinct();
+//				$this->db->join(
+//				    $this->tables['users_groups'],
+//				    $this->tables['users_groups'].'.'.$this->join['users'].'='.$this->tables['users'].'.id',
+//				    'inner'
+//				);
+//
+//				$this->db->where_in($this->tables['users_groups'].'.'.$this->join['groups'], $groups);
+//			}
+//		}
+//
+//		$this->trigger_events('extra_where');
 
 		//run each where that was passed
-		if (isset($this->_ion_where) && !empty($this->_ion_where))
-		{
-			foreach ($this->_ion_where as $where)
-			{
-				$this->db->where($where);
-			}
-
-			$this->_ion_where = array();
-		}
-
-		if (isset($this->_ion_like) && !empty($this->_ion_like))
-		{
-			foreach ($this->_ion_like as $like)
-			{
-				$this->db->or_like($like);
-			}
-
-			$this->_ion_like = array();
-		}
-
-		if (isset($this->_ion_limit) && isset($this->_ion_offset))
-		{
-			$this->db->limit($this->_ion_limit, $this->_ion_offset);
-
-			$this->_ion_limit  = NULL;
-			$this->_ion_offset = NULL;
-		}
-		else if (isset($this->_ion_limit))
-		{
-			$this->db->limit($this->_ion_limit);
-
-			$this->_ion_limit  = NULL;
-		}
+//		if (isset($this->_ion_where) && !empty($this->_ion_where))
+//		{
+//			foreach ($this->_ion_where as $where)
+//			{
+//				$this->db->where($where);
+//			}
+//
+//			$this->_ion_where = array();
+//		}
+//
+//		if (isset($this->_ion_like) && !empty($this->_ion_like))
+//		{
+//			foreach ($this->_ion_like as $like)
+//			{
+//				$this->db->or_like($like);
+//			}
+//
+//			$this->_ion_like = array();
+//		}
+//
+//		if (isset($this->_ion_limit) && isset($this->_ion_offset))
+//		{
+//			$this->db->limit($this->_ion_limit, $this->_ion_offset);
+//
+//			$this->_ion_limit  = NULL;
+//			$this->_ion_offset = NULL;
+//		}
+//		else if (isset($this->_ion_limit))
+//		{
+//			$this->db->limit($this->_ion_limit);
+//
+//			$this->_ion_limit  = NULL;
+//		}
 
 		//set the order
-		if (isset($this->_ion_order_by) && isset($this->_ion_order))
-		{
-			$this->db->order_by($this->_ion_order_by, $this->_ion_order);
-
-			$this->_ion_order    = NULL;
-			$this->_ion_order_by = NULL;
-		}
+//		if (isset($this->_ion_order_by) && isset($this->_ion_order))
+//		{
+//			$this->db->order_by($this->_ion_order_by, $this->_ion_order);
+//
+//			$this->_ion_order    = NULL;
+//			$this->_ion_order_by = NULL;
+//		}
 
 //		$this->response = $this->db->get($this->tables['users']);
-                $this->response = $stmt->execute();
-		return $this;
+                $stmt->execute();
+//                var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));exit;
+                $this->response = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//                var_dump($this);exit;
+		return $this->response;
 	}
 
 	/**
@@ -1335,6 +1342,7 @@ class Ion_auth_model extends CI_Model
                 $stmt = $this->db->conn_id->prepare("CALL getUsersGroups(?)");
                 $stmt->bindParam(1, $id, PDO::PARAM_INT);
                 $stmt->execute();
+//                var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));exit;
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
 //		return $this->db->select($this->tables['users_groups'].'.'.$this->join['groups'].' as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
 //		                ->where($this->tables['users_groups'].'.'.$this->join['users'], $id)

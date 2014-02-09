@@ -30,11 +30,11 @@ class Auth extends CI_Controller {
 			//redirect them to the login page
 			redirect('auth/login', 'refresh');
 		}
-//		elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
-//		{
-//			//redirect them to the home page because they must be an administrator to view this
-//			return show_error('You must be an administrator to view this page.');
-//		}
+		elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
+		{
+			//redirect them to the home page because they must be an administrator to view this
+			return show_error('You must be an administrator to view this page.');
+		}
 		else
 		{
 			//set the flash data error message if there is one
@@ -43,11 +43,14 @@ class Auth extends CI_Controller {
 			//list the users
 //			$this->data['users'] = $this->ion_auth->users()->result();
                         $this->data['users'] = $this->ion_auth->users();
+//                        var_dump($this->data['users']);exit;
 			foreach ($this->data['users'] as $k => $user)
 			{
+                            
 //				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
-                                var_dump($user);exit;
-                                $this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+//                                var_dump($user);exit;
+//                            var_dump($this->ion_auth->get_users_groups($user['id']));exit;
+                                $this->data['users'][$k]['groups'] = $this->ion_auth->get_users_groups($user['id']);
 			}
 
 			$this->_render_page('auth/index', $this->data);
@@ -68,7 +71,7 @@ class Auth extends CI_Controller {
 			//check to see if the user is logging in
 			//check for "remember me"
 			$remember = (bool) $this->input->post('remember');
-
+//                        var_dump($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember));exit;
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
 			{
 				//if the login is successful
