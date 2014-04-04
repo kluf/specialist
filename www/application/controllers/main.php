@@ -8,7 +8,7 @@ class Main extends CI_Controller {
             $data['view'] = '/parts/main_page_view';
             $this->load->view('main_view',$data);
 	}
-	
+
 }
 
 /* End of file welcome.php */

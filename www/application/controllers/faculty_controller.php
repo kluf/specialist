@@ -2,7 +2,7 @@
 
 class Faculty_controller extends CI_Controller {
     public function arrayForSelect($content,$option,$value){
-        foreach ($content as $val): 
+        foreach ($content as $val):
             $result[$val[$option]] = $val[$value];
         endforeach;
     return $result;
@@ -32,7 +32,7 @@ class Faculty_controller extends CI_Controller {
         $config['next_tag_open'] = '<li>';
         $config['next_tag_close'] = '</li>';
         $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';   
+        $config['last_tag_close'] = '</li>';
         $config['first_tag_open'] = '<li>';
         $config['first_tag_close'] = '</li>';
         $this->pagination->initialize($config);
@@ -42,28 +42,28 @@ class Faculty_controller extends CI_Controller {
         $data['content'] = $this->faculty_model->getFacultyByLimit($config['per_page'],$off);
         $this->load->view('main_view',$data);
     }
-    
-   
+
+
      function addFacultyView(){
         $this->load->model('faculty_model');
         $data['view'] = '/faculty/update_faculty_view';
         $data['title'] = 'Додавання факультету';
         $this->load->view('main_view',$data);
     }
-    
+
     function addFaculty(){
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
         $this->form_validation->set_rules('name', 'Назва факультету','trim|required|xss_clean');
         if ($this->form_validation->run() == FALSE)
-		{
+        {
                     $data['view'] = 'err';
                     $data['title'] = 'Помилка додавання';
                     $this->load->view('main_view',$data);
-		}
-		else
-		{   
+        }
+        else
+        {
                     $data['name'] = $this->security->xss_clean($this->input->post('name'));
                     $data['description'] = $this->security->xss_clean($this->input->post('description'));
                     $config['upload_path'] = './img/faculty/';
@@ -90,22 +90,22 @@ class Faculty_controller extends CI_Controller {
                     }
                     $this->load->model('faculty_model');
                     $this->faculty_model->addFaculty($data);
-		}
+        }
     }
-    
+
         function updateFaculty(){
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="alert alert-block">', '</div>');
         $this->form_validation->set_rules('name', 'Назва факультету','trim|required|xss_clean');
         if ($this->form_validation->run() == FALSE)
-		{
+        {
                     $data['view'] = 'err';
                     $data['title'] = 'Помилка додавання';
                     $this->load->view('main_view',$data);
-		}
-		else
-		{   
+        }
+        else
+        {
                     $data['id'] = $this->security->xss_clean($this->input->post('id'));
                     $data['name'] = $this->security->xss_clean($this->input->post('name'));
                     $data['description'] = $this->security->xss_clean($this->input->post('description'));
@@ -133,9 +133,9 @@ class Faculty_controller extends CI_Controller {
                     }
                     $this->load->model('faculty_model');
                     $this->faculty_model->updateFaculty($data);
-		}
+        }
     }
-    
+
     function updateFacultyView($id){
         $this->load->model('faculty_model');
         $data['faculty'] = $this->faculty_model->getFacultyById($id);
@@ -149,7 +149,7 @@ class Faculty_controller extends CI_Controller {
         $this->load->model('faculty_model');
         $this->faculty_model->removeFaculty($id);
     }
-   
+
 }
 
 /* End of file welcome.php */

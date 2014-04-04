@@ -16,13 +16,13 @@ class Main_load extends CI_Controller {
                 $arrData['startSem'] = $this->security->xss_clean($this->input->post('startSem'));
                 $arrData['endSem'] = $this->security->xss_clean($this->input->post('endSem'));
                 $data['mainLoad'] = $this->main_load_model->getMainTeacherLoad($arrData);
-                $this->load->view('/main_view',$data); 
+                $this->load->view('/main_view',$data);
             }else{
                 $data['title'] = 'Головне навантаження';
                 $data['view'] = '/loading/mainLoad_view';
                 $this->load->model('teacher_model');
                 $data['teacher'] = $this->arrayForSelect($this->teacher_model->getAllTeachers(),'id','surname');
-                $this->load->view('/main_view',$data);    
+                $this->load->view('/main_view',$data);
             }
 	}
         public function personalLoading()
@@ -39,13 +39,13 @@ class Main_load extends CI_Controller {
                 $arrData['startSem'] = $this->security->xss_clean($this->input->post('startSem'));
                 $arrData['endSem'] = $this->security->xss_clean($this->input->post('endSem'));
                 $data['mainLoad'] = $this->main_load_model->getPersonalTeacherLoad($arrData);
-                $this->load->view('/main_view',$data); 
+                $this->load->view('/main_view',$data);
             }else{
                 $data['title'] = 'Персональне навантаження';
                 $data['view'] = '/loading/personalLoad_view';
-                $this->load->view('/main_view',$data);    
+                $this->load->view('/main_view',$data);
             }
-            
+
 	}
          public function practiceLoading()
 	{
@@ -61,16 +61,16 @@ class Main_load extends CI_Controller {
                 $arrData['startSem'] = $this->security->xss_clean($this->input->post('startSem'));
                 $arrData['endSem'] = $this->security->xss_clean($this->input->post('endSem'));
                 $data['mainLoad'] = $this->main_load_model->getPracticeTeacherLoad($arrData);
-                $this->load->view('/main_view',$data); 
+                $this->load->view('/main_view',$data);
             }else{
                 $data['title'] = 'Навантаження по практиці';
                 $data['view'] = '/loading/practiceLoad_view';
-                $this->load->view('/main_view',$data);    
+                $this->load->view('/main_view',$data);
             }
-            
+
 	}
         public function arrayForSelect($content,$option,$value){
-            foreach ($content as $val): 
+            foreach ($content as $val):
                 $result[$val[$option]] = $val[$value];
             endforeach;
             return $result;
@@ -199,7 +199,7 @@ class Main_load extends CI_Controller {
                     $this->load->view('main_view',$data);
                 }
                 else
-                {   
+                {
                     $data['teacher'] = $this->security->xss_clean($this->input->post('teacher'));
                     $data['lesson'] = $this->security->xss_clean($this->input->post('lesson'));
                     $data['group'] = $this->security->xss_clean($this->input->post('group'));
@@ -304,7 +304,7 @@ class Main_load extends CI_Controller {
                     $this->load->view('main_view',$data);
                 }
                 else
-                {   
+                {
                     $data['id'] = $this->security->xss_clean($this->input->post('id'));
                     $data['teacher'] = $this->security->xss_clean($this->input->post('teacher'));
                     $data['lesson'] = $this->security->xss_clean($this->input->post('lesson'));
@@ -398,7 +398,7 @@ class Main_load extends CI_Controller {
                     $this->load->view('main_view',$data);
                 }
                 else
-                {   
+                {
                     $data['teacher'] = $this->security->xss_clean($this->input->post('teacher'));
                     $data['dateStart'] = $this->security->xss_clean($this->input->post('dateStart'));
                     $data['dateFinal'] = $this->security->xss_clean($this->input->post('dateFinal'));
@@ -435,7 +435,7 @@ class Main_load extends CI_Controller {
                     $this->load->view('main_view',$data);
                 }
                 else
-                {   
+                {
                     $data['id'] = $this->security->xss_clean($this->input->post('id'));
                     $data['teacher'] = $this->security->xss_clean($this->input->post('teacher'));
                     $data['dateStart'] = $this->security->xss_clean($this->input->post('dateStart'));
@@ -450,7 +450,7 @@ class Main_load extends CI_Controller {
                     $this->load->model('main_load_model');
                     $this->main_load_model->updatePersTeacherLoad($data);
                 }
-        }  
+        }
          public function addPraktLoad() {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
@@ -468,7 +468,7 @@ class Main_load extends CI_Controller {
                     $this->load->view('main_view',$data);
                 }
                 else
-                {   
+                {
                     $data['teacher'] = $this->security->xss_clean($this->input->post('teacher'));
                     $data['group'] = $this->security->xss_clean($this->input->post('group'));
                     $data['practice'] = $this->security->xss_clean($this->input->post('practice'));
@@ -497,7 +497,7 @@ class Main_load extends CI_Controller {
                     $this->load->view('main_view',$data);
                 }
                 else
-                {   
+                {
                     $data['id'] = $this->security->xss_clean($this->input->post('id'));
                     $data['teacher'] = $this->security->xss_clean($this->input->post('teacher'));
                     $data['group'] = $this->security->xss_clean($this->input->post('group'));
@@ -521,7 +521,7 @@ class Main_load extends CI_Controller {
                     $this->load->view('main_view',$data);
                 }
             else
-                {   
+                {
                     $id = $this->security->xss_clean($this->input->post('id'));
                     $this->load->model('main_load_model');
                     $this->main_load_model->removeMainTeacherLoad($id);
@@ -539,7 +539,7 @@ class Main_load extends CI_Controller {
                     $this->load->view('main_view',$data);
                 }
             else
-                {   
+                {
                     $id = $this->security->xss_clean($this->input->post('id'));
                     $this->load->model('main_load_model');
                     $this->main_load_model->removePersonalTeacherLoad($id);
@@ -557,7 +557,7 @@ class Main_load extends CI_Controller {
                     $this->load->view('main_view',$data);
                 }
             else
-                {   
+                {
                     $id = $this->security->xss_clean($this->input->post('id'));
                     $this->load->model('main_load_model');
                     $this->main_load_model->removePersonalTeacherLoad($id);
@@ -571,7 +571,7 @@ class Main_load extends CI_Controller {
                 $attrs['endSem'] = $this->security->xss_clean($this->input->post('endSem'));
                 $this->load->model('main_load_model');
                 $data['timesheet'] = $this->main_load_model->getTimesheet($attrs);
-                
+
             }
             $this->load->model('kafedra_model');
             $data['kafedra'] = $this->arrayForSelect($this->kafedra_model->getAllKafedra(),'id','kname');
@@ -588,7 +588,7 @@ class Main_load extends CI_Controller {
                 $attrs['endSem'] = $this->security->xss_clean($this->input->post('endSem'));
                 $this->load->model('main_load_model');
                 $data['kafedraLoad'] = $this->main_load_model->getKafedraLoad($attrs);
-                
+
             }
             $this->load->model('kafedra_model');
             $data['kafedra'] = $this->arrayForSelect($this->kafedra_model->getAllKafedra(),'id','kname');

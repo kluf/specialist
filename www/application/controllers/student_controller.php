@@ -1,9 +1,9 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Student_controller extends CI_Controller {
-    
+
     public function arrayForSelect($content,$option,$value){
-        foreach ($content as $val): 
+        foreach ($content as $val):
             $result[$val[$option]] = $val[$value];
         endforeach;
     return $result;
@@ -27,7 +27,7 @@ class Student_controller extends CI_Controller {
         $config['next_tag_open'] = '<li>';
         $config['next_tag_close'] = '</li>';
         $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';   
+        $config['last_tag_close'] = '</li>';
         $config['first_tag_open'] = '<li>';
         $config['first_tag_close'] = '</li>';
         $this->pagination->initialize($config);
@@ -123,6 +123,3 @@ class Student_controller extends CI_Controller {
     }
 
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
