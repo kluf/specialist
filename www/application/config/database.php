@@ -49,7 +49,7 @@ $active_group = 'default';
 $active_record = FALSE;
 $db['default']['hostname'] = 'mysql:host=localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = 'aaa';
+$db['default']['password'] = '';
 $db['default']['database'] = 'Dyplom_kafedra_calculation';
 $db['default']['dbdriver'] = 'pdo';
 $db['default']['dbprefix'] = '';

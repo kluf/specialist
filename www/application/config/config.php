@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://home1.loc/index.php/';
+$config['base_url']	= 'http://kaf.loc/index.php/';
 
 /*
 |--------------------------------------------------------------------------
